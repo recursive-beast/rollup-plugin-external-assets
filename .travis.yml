@@ -1,0 +1,14 @@
+os:
+  - linux
+  - osx
+  - windows
+language: node_js
+node_js: lts/*
+before_script: npm run build
+script: npm test
+jobs:
+  include:
+    - stage: deploy
+      before_script: npm run build
+      script: npx semantic-release
+      if: branch = master
