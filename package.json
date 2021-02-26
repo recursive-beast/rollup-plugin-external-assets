@@ -8,7 +8,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "ava tests/*.test.js -- no-rollup-warnings",
+    "test": "ava tests/*.test.js --fail-fast -- no-rollup-warnings",
     "clean": "del-cli dist",
     "build": "npm run clean && rollup -c",
     "prepare": "cd tests/fixtures && npm install"
