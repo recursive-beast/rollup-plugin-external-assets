@@ -6,8 +6,8 @@ function cleanUpRollupOutput(output) {
 	return output.map(chunkOrAsset => {
 		if (chunkOrAsset.type === "asset") return chunkOrAsset;
 
-		// These properties contain absolute paths,
-		// and the path separator is not consistent between platforms.
+		// These properties are inconsistent between platforms.
+		// (absolute paths, end of line chars)
 		const {
 			dynamicImports,
 			facadeModuleId,
@@ -15,10 +15,14 @@ function cleanUpRollupOutput(output) {
 			imports,
 			modules,
 			referencedFiles,
+			code,
 			...rest
 		} = chunkOrAsset;
 
-		return { ...rest };
+		return {
+			...rest,
+			code: code.replace(/\r\n|\n/g, "\n"),
+		};
 	});
 }
 
