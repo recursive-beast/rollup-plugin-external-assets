@@ -8,9 +8,10 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava tests/*.test.js -- no-rollup-warnings",
     "clean": "del-cli dist",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && rollup -c",
+    "prepare": "cd tests/fixtures && npm install"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
@@ -46,5 +48,9 @@
     "semantic-release": "^17.3.9",
     "ts-transform-default-export": "^1.0.3",
     "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^3.1.0",
+    "recast": "^0.20.4"
   }
 }
