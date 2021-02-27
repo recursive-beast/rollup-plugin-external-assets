@@ -26,19 +26,6 @@ function cleanUpRollupOutput(output) {
 	});
 }
 
-module.exports.bundleThrowsMacro = async function (t, inputOptions, errorExpectations, expected_message) {
-	await t.throwsAsync(async () => {
-		const bundle = await rollup(inputOptions);
-
-		// Just in case the test fails (rollup doesn't throw),
-		// we should teardown the bundle.
-		await bundle.close();
-	},
-		errorExpectations,
-		expected_message
-	);
-};
-
 module.exports.outputSnapshotMacro = async function (t, inputOptions, outputOptions = {}) {
 	if (process.argv.includes("no-rollup-warnings")) {
 		inputOptions = { ...inputOptions, onwarn: noop };
