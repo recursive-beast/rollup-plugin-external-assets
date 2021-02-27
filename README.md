@@ -105,6 +105,9 @@ npm run build
 
 ### Tests
 
+|:warning: This plugin was only tested for static imports :warning:|
+|---|
+
 To run tests:
 
 ```sh
