@@ -60,6 +60,7 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 
 	return {
 		name: PLUGIN_NAME,
+
 		async options(inputOptions) {
 			const plugins = inputOptions.plugins;
 
@@ -84,16 +85,18 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 					...externalAssetsPlugins,
 					...otherPlugins,
 				],
-			}
+			};
 		},
-		async resolveId(source, importer, options) {
-			// `this.resolve` was called from another instance of this plugin.
-			// skip to avoid infinite loop.
-			if (options.custom?.[PLUGIN_NAME]?.skip) return null;
 
-			// Skip resolving entrypoints,
-			// and don't resolve imports from filtered out modules.
-			if (!importer || !importerFilter(importer)) return null;
+		async resolveId(source, importer, options) {
+			// `this.resolve` was called from another instance of this plugin. skip to avoid infinite loop.
+			// or skip resolving entrypoints.
+			// or don't resolve imports from filtered out modules.
+			if (
+				options.custom?.[PLUGIN_NAME]?.skip
+				|| !importer
+				|| !importerFilter(importer)
+			) return null;
 
 			// We'll delegate resolving to other plugins (alias, node-resolve ...),
 			// or eventually, rollup itself.
@@ -118,6 +121,7 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 				external: true,
 			};
 		},
+
 		async renderChunk(code, chunk, outputOptions) {
 			const chunk_id = getOutputId(chunk.fileName, outputOptions);
 			const chunk_basename = path.basename(chunk_id);
