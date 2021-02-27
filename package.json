@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "test": "ava tests/*.test.js --verbose --fail-fast -- no-rollup-warnings",
+    "test:warn": "ava tests/*.test.js --verbose --fail-fast",
     "clean": "del-cli dist",
     "build": "npm run clean && rollup -c",
     "prepare": "cd tests/fixtures && npm install"
