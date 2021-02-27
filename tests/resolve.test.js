@@ -6,7 +6,7 @@ const externalAssets = require("..");
 
 test("Skips resolving entrypoints", async t => {
 	const plugin = externalAssets("dummy_patern");
-	const resolution = await plugin.resolveId("dummy_source", undefined);
+	const resolution = await plugin.resolveId("dummy_source", undefined, {});
 
 	t.is(resolution, null);
 });

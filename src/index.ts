@@ -86,7 +86,11 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 				],
 			}
 		},
-		async resolveId(source, importer) {
+		async resolveId(source, importer, options) {
+			// `this.resolve` was called from another instance of this plugin.
+			// skip to avoid infinite loop.
+			if (options.custom?.[PLUGIN_NAME]?.skip) return null;
+
 			// Skip resolving entrypoints,
 			// and don't resolve imports from filtered out modules.
 			if (!importer || !importerFilter(importer)) return null;
@@ -96,6 +100,11 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 			// We need to skip this plugin to avoid an infinite loop.
 			const resolution = await this.resolve(source, importer, {
 				skipSelf: true,
+				custom: {
+					[PLUGIN_NAME]: {
+						skip: true,
+					}
+				}
 			});
 
 			// If it cannot be resolved, or if the id is filtered out,
