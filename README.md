@@ -1,6 +1,7 @@
 [![npm](https://img.shields.io/npm/dt/rollup-plugin-external-assets)](https://www.npmjs.com/package/rollup-plugin-external-assets)
 [![npm](https://img.shields.io/npm/v/rollup-plugin-external-assets)](https://www.npmjs.com/package/rollup-plugin-external-assets)
 [![Build Status](https://travis-ci.com/soufyakoub/rollup-plugin-external-assets.svg?branch=master)](https://travis-ci.com/soufyakoub/rollup-plugin-external-assets)
+[![codecov](https://codecov.io/gh/soufyakoub/rollup-plugin-external-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/soufyakoub/rollup-plugin-external-assets)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)][1]
 
 # rollup-plugin-external-assets
@@ -118,6 +119,10 @@ If you want to see all the warnings when running tests, use this command instead
 ```sh
 npm run test:warn
 ```
+
+Coverage report is located in `tests/coverage`.
+you might want to review it in your browser, and for example,
+write tests for non-covered blocks, or remove them if they're useless.
 
 ### Commiting changes
 
