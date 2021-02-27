@@ -64,6 +64,18 @@ test(
 	}
 );
 
+test(
+	[
+		"output.file = 'sub/abcd/out.js'",
+		"output.assetFileNames = 'assets/sub/[name]_[hash][extname]'",
+	].join(" && "),
+	outputSnapshotWithFixedInputMacro,
+	{
+		file: "sub/abcd/out.js",
+		assetFileNames: "assets/sub/[name]_[hash][extname]",
+	}
+);
+
 // TODO: recast throws an error when a chunk contains dynamic imports,
 // I tried to use acorn instead of the default esprima parser, but the error is still the same.
 // I'll invistigate the source of that error later, but for now I'll only test static imports.
