@@ -8,11 +8,11 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "nyc --reporter=lcov ava tests/*.test.js --verbose --fail-fast -- no-rollup-warnings",
-    "test:warn": "nyc --reporter=lcov ava tests/*.test.js --verbose --fail-fast",
+    "test": "npm run test:warn -- -- no-rollup-warnings",
+    "test:warn": "del-cli tests/{coverage,.nyc_output} && nyc --reporter=lcov ava tests/*.test.js --verbose --fail-fast",
     "coverage": "codecov",
-    "clean": "del-cli dist tests/coverage tests/.nyc_output",
-    "build": "npm run clean && rollup -c",
+    "clean": "del-cli dist tests/{coverage,.nyc_output}",
+    "build": "del-cli dist && rollup -c",
     "prepare": "cd tests/fixtures && npm install"
   },
   "repository": {
