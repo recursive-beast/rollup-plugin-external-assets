@@ -60,6 +60,32 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 
 	return {
 		name: PLUGIN_NAME,
+		async options(inputOptions) {
+			const plugins = inputOptions.plugins;
+
+			// No transformations.
+			if (!plugins) return null;
+
+			// Separate our plugin from other plugins.
+			const externalAssetsPlugins: Plugin[] = [];
+			const otherPlugins = plugins.filter(plugin => {
+				if (plugin.name !== PLUGIN_NAME) return true;
+
+				externalAssetsPlugins.push(plugin);
+				return false;
+			});
+
+			// Re-position our plugin to be the first in the list.
+			// Otherwise, if there's a plugin that resolves paths before ours,
+			// non-external imports can trigger the load hook for assets that can't be parsed by other plugins.
+			return {
+				...inputOptions,
+				plugins: [
+					...externalAssetsPlugins,
+					...otherPlugins,
+				],
+			}
+		},
 		async resolveId(source, importer) {
 			// Skip resolving entrypoints,
 			// and don't resolve imports from filtered out modules.
