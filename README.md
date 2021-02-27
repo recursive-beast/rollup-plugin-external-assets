@@ -5,7 +5,7 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)][1]
 
 # rollup-plugin-external-assets
-> Make assets external but include them in the output.
+> A rollup plugin to make assets external but include them in the output.
 
 ## Installation
 
