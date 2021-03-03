@@ -104,8 +104,20 @@ npm run test:warn
 ```
 
 Coverage report is located in `tests/coverage`.
-you might want to review it in your browser, and for example,
+You might want to review it in your browser, and for example,
 write tests for non-covered blocks, or remove them if they're useless.
+
+To run tests and update snapshots:
+
+```sh
+npm run test:update
+```
+
+or (with rollup warnings):
+
+```sh
+npm run test:update:warn
+```
 
 ### Commiting changes
 
