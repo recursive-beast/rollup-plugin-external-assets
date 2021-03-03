@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v1.0.0...v1.1.0) (2021-03-03)
+
+
+### Features
+
+* added deprecation warning for options parameter ([57b6315](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/57b6315c5d419b2ae59120086d30ecf21fb41e3a))
+
 # 1.0.0 (2021-02-27)
 
 
