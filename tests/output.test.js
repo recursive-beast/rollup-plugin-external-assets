@@ -2,39 +2,45 @@ const test = require("ava");
 const { outputSnapshotMacro } = require("./macros");
 const externalAssets = require("..");
 
-function outputSnapshotWithFixedInputMacro(t, outputOptions) {
-	return outputSnapshotMacro(t,
+const outputFormats = ["es", "cjs", "amd", "iife", "umd", "system"];
+
+for (const format of outputFormats) {
+	test(`output.format = '${format}'`, outputSnapshotMacro,
 		{
 			input: "tests/fixtures/src/index1.js",
 			plugins: [
 				externalAssets("tests/fixtures/assets/*"),
 			],
-		},
-		outputOptions,
-	);
-};
-
-const outputFormats = ["es", "cjs", "amd", "iife", "umd", "system"];
-
-for (const format of outputFormats) {
-	test(`output.format = '${format}'`, outputSnapshotWithFixedInputMacro,
-		{
-			name: "mybundle", // required for iife bundles.
-			format,
+			output: {
+				name: "mybundle", // required for iife bundles.
+				format,
+			},
 		}
 	);
 }
 
 
-test("output.sourcemaps = true", outputSnapshotWithFixedInputMacro,
+test("output.sourcemaps = true", outputSnapshotMacro,
 	{
-		sourcemap: true,
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			sourcemap: true,
+		},
 	}
 );
 
-test("output.dir = 'sub/abcd'", outputSnapshotWithFixedInputMacro,
+test("output.dir = 'sub/abcd'", outputSnapshotMacro,
 	{
-		dir: "sub/abcd",
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			dir: "sub/abcd",
+		},
 	}
 );
 
@@ -43,10 +49,16 @@ test(
 		"output.dir = 'sub/abcd'",
 		"output.entryFileNames = 'a/b/[name].js'",
 	].join(" && "),
-	outputSnapshotWithFixedInputMacro,
+	outputSnapshotMacro,
 	{
-		dir: "sub/abcd",
-		entryFileNames: "a/b/[name].js",
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			dir: "sub/abcd",
+			entryFileNames: "a/b/[name].js",
+		},
 	}
 );
 
@@ -56,11 +68,17 @@ test(
 		"output.entryFileNames = 'a/b/[name].js'",
 		"output.assetFileNames = 'assets/sub/[name]_[hash][extname]'",
 	].join(" && "),
-	outputSnapshotWithFixedInputMacro,
+	outputSnapshotMacro,
 	{
-		dir: "sub/abcd",
-		entryFileNames: "a/b/[name].js",
-		assetFileNames: "assets/sub/[name]_[hash][extname]",
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			dir: "sub/abcd",
+			entryFileNames: "a/b/[name].js",
+			assetFileNames: "assets/sub/[name]_[hash][extname]",
+		},
 	}
 );
 
@@ -69,10 +87,16 @@ test(
 		"output.file = 'sub/abcd/out.js'",
 		"output.assetFileNames = 'assets/sub/[name]_[hash][extname]'",
 	].join(" && "),
-	outputSnapshotWithFixedInputMacro,
+	outputSnapshotMacro,
 	{
-		file: "sub/abcd/out.js",
-		assetFileNames: "assets/sub/[name]_[hash][extname]",
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			file: "sub/abcd/out.js",
+			assetFileNames: "assets/sub/[name]_[hash][extname]",
+		},
 	}
 );
 
@@ -81,10 +105,16 @@ test(
 		"output.dir = 'sub/abcd'",
 		"preserveModules = true",
 	].join(" && "),
-	outputSnapshotWithFixedInputMacro,
+	outputSnapshotMacro,
 	{
-		dir: "sub/abcd",
-		preserveModules: true,
+		input: "tests/fixtures/src/index1.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+		output: {
+			dir: "sub/abcd",
+			preserveModules: true,
+		},
 	}
 );
 

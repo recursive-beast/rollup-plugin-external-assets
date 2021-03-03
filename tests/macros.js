@@ -26,7 +26,9 @@ function normalizeRollupOutput(output) {
 	});
 }
 
-module.exports.outputSnapshotMacro = async function (t, inputOptions, outputOptions = {}) {
+module.exports.outputSnapshotMacro = async function (t, options) {
+	let { output: outputOptions = {}, ...inputOptions } = options;
+
 	if (process.argv.includes("no-rollup-warnings")) {
 		inputOptions = { ...inputOptions, onwarn: noop };
 	}
