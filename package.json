@@ -10,6 +10,8 @@
   "scripts": {
     "test": "npm run test:warn -- -- no-rollup-warnings",
     "test:warn": "del-cli tests/{coverage,.nyc_output} && nyc --reporter=lcov ava tests/*.test.js --verbose --fail-fast",
+    "test:update": "npm run test:warn -- --update-snapshots -- no-rollup-warnings",
+    "test:update:warn": "npm run test:warn -- --update-snapshots",
     "coverage": "codecov",
     "clean": "del-cli dist tests/{coverage,.nyc_output}",
     "build": "del-cli dist && rollup -c",
