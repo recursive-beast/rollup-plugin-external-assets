@@ -1,3 +1,4 @@
+import { builtinModules } from "module";
 import nodeResolve from '@rollup/plugin-node-resolve';
 import ts from "@wessberg/rollup-plugin-ts";
 import transformDefaultExport from "ts-transform-default-export";
@@ -21,9 +22,7 @@ export default {
 	external: [
 		...Object.keys(pkg.dependencies),
 		// ...Object.keys(pkg.peerDependencies),
-		"fs",
-		"path",
-		"crypto",
+		...builtinModules,
 	],
 	plugins: [
 		nodeResolve(),
