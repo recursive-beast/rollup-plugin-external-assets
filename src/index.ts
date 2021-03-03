@@ -59,6 +59,10 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 	const sourceFilter = createFilter(pattern);
 
 	return {
+		async buildStart() {
+			this.warn("'options' parameter is deprecated. Please update to the latest version.");
+		},
+
 		name: PLUGIN_NAME,
 
 		async options(inputOptions) {
