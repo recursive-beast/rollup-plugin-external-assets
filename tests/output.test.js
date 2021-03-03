@@ -107,7 +107,7 @@ test(
 	].join(" && "),
 	outputSnapshotMacro,
 	{
-		input: "tests/fixtures/src/index1.js",
+		input: "tests/fixtures/src/sub/index4.js",
 		plugins: [
 			externalAssets("tests/fixtures/assets/*"),
 		],
