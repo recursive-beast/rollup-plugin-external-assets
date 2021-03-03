@@ -1,3 +1,22 @@
+# [2.0.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v1.1.0...v2.0.0) (2021-03-03)
+
+
+### Bug Fixes
+
+* inconsistant hash in the load hook ([da51590](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/da51590e41c50c30c33ed093aa3add0abf726660))
+
+
+### Features
+
+* added support for watch mode ([f080246](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/f08024649d84e4762ba59f47169e5a8af32931d0))
+
+
+### BREAKING CHANGES
+
+* The `options` parameter is now deprecated, the reason
+is that `exclude` and `include` do not make sense when importing the same
+asset from both excluded and included modules
+
 # [1.1.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v1.0.0...v1.1.0) (2021-03-03)
 
 
