@@ -32,6 +32,17 @@ function getRelativeImportPath(from: string, to: string) {
 	return import_path;
 }
 
+function getIdHash(id: string) {
+	const md5sum = crypto.createHash("md5");
+
+	return new Promise<string>((resolve, reject) =>
+		fs.createReadStream(id)
+			.on("data", chunk => md5sum.update(chunk))
+			.on("end", () => resolve(md5sum.digest("hex")))
+			.on("error", err => reject(err))
+	);
+}
+
 /**
  * Make assets external but include them in the output.
  * @param pattern - A picomatch pattern, or array of patterns,
@@ -66,7 +77,7 @@ export default function externalAssets(pattern: FilterPattern): Plugin {
 				|| !idFilter(id) // Filtered out id.
 			) return null;
 
-			const hash = crypto.createHash('md5').update(id).digest('hex');
+			const hash = await getIdHash(id);
 
 			// In the output phase,
 			// We'll use this mapping to replace the hash with a relative path from a chunk to the emitted asset.
