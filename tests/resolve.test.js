@@ -15,10 +15,10 @@ test(`Resolve with @rollup/plugin-node-resolve`, outputSnapshotMacro,
 	{
 		input: "tests/fixtures/src/index2.js",
 		plugins: [
-			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 			nodeResolve({
 				moduleDirectories: ["tests/fixtures/node_modules"],
 			}),
+			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 		],
 	}
 );
@@ -27,7 +27,6 @@ test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, outputS
 	{
 		input: "tests/fixtures/src/sub/index3.js",
 		plugins: [
-			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 			nodeResolve({
 				moduleDirectories: ["tests/fixtures/node_modules"],
 			}),
@@ -36,6 +35,7 @@ test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, outputS
 					{ find: '@assets_alias', replacement: '../../assets' },
 				],
 			}),
+			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 		],
 	}
 );
