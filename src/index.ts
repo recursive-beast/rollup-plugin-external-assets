@@ -1,26 +1,12 @@
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 import { Plugin, OutputOptions } from "rollup";
 import { createFilter, FilterPattern } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
 
-interface PluginOptions {
-	/**
-	 * A picomatch pattern, or array of patterns,
-	 * which correspond to modules the plugin should operate on.
-	 * By default all modules are targeted.
-	 */
-	include?: FilterPattern;
-	/**
-	 * A picomatch pattern, or array of patterns,
-	 * which correspond to modules the plugin should ignore.
-	 * By default no modules are ignored.
-	 */
-	exclude?: FilterPattern;
-}
-
 const PLUGIN_NAME = "external-assets";
-const REGEX_ESCAPED_PLUGIN_NAME = PLUGIN_NAME.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const PREFIX = `\0${PLUGIN_NAME}:`;
 
 function getOutputId(filename: string, outputOptions: OutputOptions) {
 	// Extract output directory from outputOptions.
@@ -52,78 +38,46 @@ function getRelativeImportPath(from: string, to: string) {
  * which correspond to assets the plugin should operate on.
  * @param options - The options object.
  */
-export default function externalAssets(pattern: FilterPattern, options?: PluginOptions): Plugin {
+export default function externalAssets(pattern: FilterPattern): Plugin {
 	if (!pattern) throw new Error("please specify a pattern for targeted assets");
 
-	const importerFilter = createFilter(options?.include, options?.exclude);
-	const sourceFilter = createFilter(pattern);
+	const idFilter = createFilter(pattern);
+	const hashToIdMap: Partial<Record<string, string>> = {};
 
 	return {
-		async buildStart() {
-			this.warn("'options' parameter is deprecated. Please update to the latest version.");
-		},
-
 		name: PLUGIN_NAME,
 
-		async options(inputOptions) {
-			const plugins = inputOptions.plugins;
+		async resolveId(source, importer) {
+			if (
+				!importer // Skip entrypoints.
+				|| !source.startsWith(PREFIX) // Not a hash that was calculated in the `load` hook.
+			) return null;
 
-			// No transformations.
-			if (!plugins) return null;
-
-			// Separate our plugin from other plugins.
-			const externalAssetsPlugins: Plugin[] = [];
-			const otherPlugins = plugins.filter(plugin => {
-				if (plugin.name !== PLUGIN_NAME) return true;
-
-				externalAssetsPlugins.push(plugin);
-				return false;
-			});
-
-			// Re-position our plugin to be the first in the list.
-			// Otherwise, if there's a plugin that resolves paths before ours,
-			// non-external imports can trigger the load hook for assets that can't be parsed by other plugins.
 			return {
-				...inputOptions,
-				plugins: [
-					...externalAssetsPlugins,
-					...otherPlugins,
-				],
+				id: source,
+				external: true
 			};
 		},
 
-		async resolveId(source, importer, options) {
-			// `this.resolve` was called from another instance of this plugin. skip to avoid infinite loop.
-			// or skip resolving entrypoints.
-			// or don't resolve imports from filtered out modules.
+		async load(id) {
 			if (
-				options.custom?.[PLUGIN_NAME]?.skip
-				|| !importer
-				|| !importerFilter(importer)
+				id.startsWith("\0") // Virtual module.
+				|| id.includes("?") // Id reserved by some other plugin.
+				|| !idFilter(id) // Filtered out id.
 			) return null;
 
-			// We'll delegate resolving to other plugins (alias, node-resolve ...),
-			// or eventually, rollup itself.
-			// We need to skip this plugin to avoid an infinite loop.
-			const resolution = await this.resolve(source, importer, {
-				skipSelf: true,
-				custom: {
-					[PLUGIN_NAME]: {
-						skip: true,
-					}
-				}
-			});
+			const hash = crypto.createHash('md5').update(id).digest('hex');
 
-			// If it cannot be resolved, or if the id is filtered out,
-			// return `null` so that Rollup displays an error.
-			if (!resolution || !sourceFilter(resolution.id)) return null;
+			// In the output phase,
+			// We'll use this mapping to replace the hash with a relative path from a chunk to the emitted asset.
+			hashToIdMap[hash] = id;
 
-			return {
-				...resolution,
-				// We'll need `target_id` to emit the asset in the output phase.
-				id: `${resolution.id}?${PLUGIN_NAME}&target_id=${resolution.id}`,
-				external: true,
-			};
+			// Load a proxy module with a hash as the import.
+			// The hash will be resolved as external.
+			// The benefit of doing it this way, instead of resolving asset imports to external ids,
+			// is that we get watch mode support out of the box.
+			return `export * from "${PREFIX + hash}";\n`
+				+ `export { default } from "${PREFIX + hash}";\n`;
 		},
 
 		async renderChunk(code, chunk, outputOptions) {
@@ -131,23 +85,24 @@ export default function externalAssets(pattern: FilterPattern, options?: PluginO
 			const chunk_basename = path.basename(chunk_id);
 
 			const ast = parse(code, { sourceFileName: chunk_basename });
-			const pattern = new RegExp(`.+\\?${REGEX_ESCAPED_PLUGIN_NAME}&target_id=(.+)`);
 			const rollup_context = this;
 
 			visit(ast, {
 				visitLiteral(nodePath) {
-					const node = nodePath.node;
+					const value = nodePath.node.value;
 
-					// We're only concerned with string literals.
-					if (typeof node.value !== "string") return this.traverse(nodePath);
+					if (
+						typeof value !== "string" // We're only concerned with string literals.
+						|| !value.startsWith(PREFIX) // Not a hash that was calculated in the `load` hook.
+					) return this.traverse(nodePath);
 
-					const match = node.value.match(pattern);
+					const hash = value.slice(PREFIX.length);
+					const target_id = hashToIdMap[hash];
 
-					// This string does not refer to an import path that we resolved in the `resolveId` hook.
-					if (!match) return this.traverse(nodePath);
+					// The hash belongs to another instance of this plugin.
+					if (!target_id) return this.traverse(nodePath);
 
 					// Emit the targeted asset.
-					const target_id = match[1];
 					const asset_reference_id = rollup_context.emitFile({
 						type: "asset",
 						source: fs.readFileSync(target_id),

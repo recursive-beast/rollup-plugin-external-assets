@@ -23,6 +23,7 @@ export default {
 		// ...Object.keys(pkg.peerDependencies),
 		"fs",
 		"path",
+		"crypto",
 	],
 	plugins: [
 		nodeResolve(),

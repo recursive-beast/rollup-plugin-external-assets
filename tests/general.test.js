@@ -1,6 +1,5 @@
 const test = require("ava");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const { rollup } = require("rollup");
 const { outputSnapshotMacro } = require("./macros");
 const externalAssets = require("..");
 
@@ -15,21 +14,6 @@ for (const value of falsy) {
 		});
 	});
 }
-
-// Solved by re-positioning the plugin to be the first on the list.
-test("Plugin works even if it's not the first in the list", async t => {
-	await t.notThrowsAsync(
-		rollup({
-			input: "tests/fixtures/src/index2.js",
-			plugins: [
-				nodeResolve({
-					moduleDirectories: ["tests/fixtures/node_modules"],
-				}),
-				externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
-			],
-		})
-	);
-});
 
 test("Multiple instances of the plugin can be used at the same time", outputSnapshotMacro,
 	{
