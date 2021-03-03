@@ -44,16 +44,12 @@ export default {
 ## API
 
 ```typescript
-function externalAssets(
-	pattern: string | RegExp | (string | RegExp)[],
-	options: {
-		exclude?: string | RegExp | (string | RegExp)[],
-		include?: string | RegExp | (string | RegExp)[],
-	}
-)
+function externalAssets(pattern: string | RegExp | (string | RegExp)[]);
 ```
 
 ### pattern
+
+`string | RegExp | (string | RegExp)[]`
 
 A picomatch pattern, or array of patterns, which correspond to assets the plugin should operate on.
 
@@ -62,25 +58,6 @@ A picomatch pattern, or array of patterns, which correspond to assets the plugin
 externalAssets("assets/**/*.jpg");
 // Process imports that reference images in the <working dir>/assets directory, and all stylesheet files.
 externalAssets(["assets/**/*.{jpg,png}", /\.(css|scss)$/])
-```
-
-### options
-
-- **include**?: A picomatch pattern, or array of patterns,
-which correspond to modules the plugin should operate on.
-By default all modules are targeted.
-
-- **exclude**?: A picomatch pattern, or array of patterns,
-which correspond to modules the plugin should ignore.
-By default no modules are ignored.
-
-```javascript
-// Don't process imports from js modules in src/exclude.
-externalAssets("assets/**/*", {exclude: "src/exclude/*.js"});
-// Process imports only from js modules in src/include.
-externalAssets("assets/**/*", {include: "src/include/*.js"});
-// Process imports from js modules in src/include, but not from js modules in src/exclude.
-externalAssets("assets/**/*", {include: "src/include/*.js", exclude: "src/exclude/*.js"});
 ```
 
 ## Contributing
