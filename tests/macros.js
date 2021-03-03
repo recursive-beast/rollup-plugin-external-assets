@@ -2,7 +2,7 @@ const { rollup } = require("rollup");
 
 function noop() { }
 
-function cleanUpRollupOutput(output) {
+function normalizeRollupOutput(output) {
 	return output.map(chunkOrAsset => {
 		if (chunkOrAsset.type === "asset") return chunkOrAsset;
 
@@ -34,7 +34,7 @@ module.exports.outputSnapshotMacro = async function (t, inputOptions, outputOpti
 	const bundle = await rollup(inputOptions);
 	t.teardown(async () => await bundle.close());
 	const { output } = await bundle.generate(outputOptions);
-	const cleanOutput = cleanUpRollupOutput(output);
+	const normalizedOutput = normalizeRollupOutput(output);
 
-	t.snapshot(cleanOutput);
+	t.snapshot(normalizedOutput);
 };
