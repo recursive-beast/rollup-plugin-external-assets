@@ -156,3 +156,12 @@ test("dynamic imports", outputSnapshotMacro,
 		],
 	}
 );
+
+test("deduplicate assets with different names", outputSnapshotMacro,
+	{
+		input: "tests/fixtures/src/index6.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+	}
+);
