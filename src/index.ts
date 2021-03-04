@@ -94,9 +94,22 @@ export default function externalAssets(pattern: FilterPattern): Plugin {
 		async renderChunk(code, chunk, outputOptions) {
 			const chunk_id = getOutputId(chunk.fileName, outputOptions);
 			const chunk_basename = path.basename(chunk_id);
-
-			const ast = parse(code, { sourceFileName: chunk_basename });
 			const rollup_context = this;
+
+			const customParser = {
+				parse(source: string) {
+					// Use rollup's internal acorn instance to parse `source`.
+					return rollup_context.parse(source, {
+						ecmaVersion: "latest",
+						locations: true, // Needed by `recast` to preserve code formatting.
+					});
+				},
+			};
+
+			const ast = parse(code, {
+				sourceFileName: chunk_basename,
+				parser: customParser,
+			});
 
 			visit(ast, {
 				visitLiteral(nodePath) {

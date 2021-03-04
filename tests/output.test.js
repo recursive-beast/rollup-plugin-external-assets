@@ -148,6 +148,11 @@ test("treeshake.moduleSideEffects = false", outputSnapshotMacro,
 	}
 );
 
-// TODO: recast throws an error when a chunk contains dynamic imports,
-// I tried to use acorn instead of the default esprima parser, but the error is still the same.
-// I'll invistigate the source of that error later, but for now I'll only test static imports.
+test("dynamic imports", outputSnapshotMacro,
+	{
+		input: "tests/fixtures/src/index5.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+	}
+);
