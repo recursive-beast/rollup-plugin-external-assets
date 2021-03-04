@@ -47,7 +47,6 @@ function getIdHash(id: string) {
  * Make assets external but include them in the output.
  * @param pattern - A picomatch pattern, or array of patterns,
  * which correspond to assets the plugin should operate on.
- * @param options - The options object.
  */
 export default function externalAssets(pattern: FilterPattern): Plugin {
 	if (!pattern) throw new Error("please specify a pattern for targeted assets");
