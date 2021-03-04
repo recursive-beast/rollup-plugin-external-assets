@@ -7,9 +7,6 @@
 # rollup-plugin-external-assets
 > A rollup plugin to make assets external but include them in the output.
 
-|:warning: This plugin was only tested for static imports :warning:|
-|---|
-
 ## Installation
 
 Via [npm][2]
@@ -84,9 +81,6 @@ npm run build
 ```
 
 ### Tests
-
-|:warning: This plugin was only tested for static imports :warning:|
-|---|
 
 To run tests:
 
