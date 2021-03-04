@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.1.0...v2.1.1) (2021-03-04)
+
+
+### Bug Fixes
+
+* removed jsdoc comment for deprecated options parameter ([9dfb4fc](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/9dfb4fcbe59a7d723d64d79ffabc2aa50d13c20e))
+
 # [2.1.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.0.0...v2.1.0) (2021-03-04)
 
 
