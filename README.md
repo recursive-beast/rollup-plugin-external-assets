@@ -88,6 +88,9 @@ To run tests:
 npm test
 ```
 
+:memo: You might want to redirect snapshot diffs somewhere else instead of `stdout`.
+Checkout this [issue][7] for the package that produces the diffs.
+
 Note that rollup may emit warnings for unspecified options, or for some other reasons.
 I made sure they are ignored with the `no-rollup-warnings` flag in the npm test script.
 
@@ -127,3 +130,4 @@ Please follow the [conventional commits][5] specification, because [semantic-rel
 [4]: https://nodejs.org
 [5]: https://www.conventionalcommits.org/en/v1.0.0/
 [6]: https://github.com/semantic-release/semantic-release
+[7]: https://github.com/concordancejs/concordance/issues/68
