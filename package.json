@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-external-assets",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A rollup plugin to make assets external but include them in the output.",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",

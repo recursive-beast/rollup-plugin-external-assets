@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.0.0...v2.1.0) (2021-03-04)
+
+
+### Features
+
+* added support for dynamic imports ([feff91f](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/feff91f1143153bb042704dda7cb38e02924e6be))
+
 # [2.0.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v1.1.0...v2.0.0) (2021-03-03)
 
 
