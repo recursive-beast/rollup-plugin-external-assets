@@ -2,29 +2,25 @@ const { rollup } = require("rollup");
 
 function noop() { }
 
-function normalizeRollupOutput(output) {
-	return output.map(chunkOrAsset => {
-		if (chunkOrAsset.type === "asset") return chunkOrAsset;
+const normalizeChunks = chunks => chunks.map(chunk => {
+	// These properties are inconsistent between platforms.
+	// (absolute paths, end of line chars)
+	const {
+		dynamicImports,
+		facadeModuleId,
+		importedBindings,
+		imports,
+		modules,
+		referencedFiles,
+		code,
+		...rest
+	} = chunk;
 
-		// These properties are inconsistent between platforms.
-		// (absolute paths, end of line chars)
-		const {
-			dynamicImports,
-			facadeModuleId,
-			importedBindings,
-			imports,
-			modules,
-			referencedFiles,
-			code,
-			...rest
-		} = chunkOrAsset;
-
-		return {
-			...rest,
-			code: code.replace(/\r\n|\n/g, "\n"),
-		};
-	});
-}
+	return {
+		...rest,
+		code: code.replace(/\r\n|\n/g, "\n"),
+	};
+});
 
 module.exports.outputSnapshotMacro = async function (t, options) {
 	let { output: outputOptions = {}, ...inputOptions } = options;
@@ -36,7 +32,11 @@ module.exports.outputSnapshotMacro = async function (t, options) {
 	const bundle = await rollup(inputOptions);
 	t.teardown(async () => await bundle.close());
 	const { output } = await bundle.generate(outputOptions);
-	const normalizedOutput = normalizeRollupOutput(output);
 
-	t.snapshot(normalizedOutput);
+	const chunks = output.filter(element => element.type === "chunk");
+	const assets = output.filter(element => element.type === "asset");
+	const normalizedChunks = normalizeChunks(chunks);
+
+	t.snapshot(normalizedChunks);
+	t.snapshot(assets);
 };
