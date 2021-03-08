@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.1.1...v2.2.0) (2021-03-08)
+
+
+### Features
+
+* **package.json:** added sideEffects flag ([6d2c71d](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/6d2c71d911cca1b007c6e3e42bf0b68dba109acd))
+
 ## [2.1.1](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.1.0...v2.1.1) (2021-03-04)
 
 
