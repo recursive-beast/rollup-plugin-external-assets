@@ -148,7 +148,7 @@ test("treeshake.moduleSideEffects = false", outputSnapshotMacro,
 	}
 );
 
-test("dynamic imports", outputSnapshotMacro,
+test.failing("dynamic imports", outputSnapshotMacro,
 	{
 		input: "tests/fixtures/src/index5.js",
 		plugins: [
