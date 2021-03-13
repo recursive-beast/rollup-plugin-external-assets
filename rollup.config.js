@@ -4,36 +4,42 @@ import ts from "@wessberg/rollup-plugin-ts";
 import transformDefaultExport from "ts-transform-default-export";
 import pkg from "./package.json";
 
-export default {
-	input: "src/index.ts",
-	output: [
-		{
+const external = [
+	...Object.keys(pkg.dependencies),
+	// ...Object.keys(pkg.peerDependencies),
+	...builtinModules,
+];
+
+export default [
+	{
+		input: "src/index.ts",
+		output: {
 			file: pkg.main,
 			format: "cjs",
 			exports: "default",
 			sourcemap: true,
 		},
-		{
+		external,
+		plugins: [
+			nodeResolve(),
+			ts({
+				transformers: ({ program }) => ({
+					afterDeclarations: transformDefaultExport(program),
+				}),
+			}),
+		],
+	},
+	{
+		input: "src/index.ts",
+		output: {
 			file: pkg.module,
 			format: "es",
 			sourcemap: true,
 		},
-	],
-	external: [
-		...Object.keys(pkg.dependencies),
-		// ...Object.keys(pkg.peerDependencies),
-		...builtinModules,
-	],
-	plugins: [
-		nodeResolve(),
-		ts({
-			exclude: "node_modules/**/*",
-			transformers: ({ program }) => ({
-				afterDeclarations: transformDefaultExport(program, { keepOriginalExport: true }),
-			}),
-		}),
-	],
-	watch: {
-		exclude: /node_modules/,
+		external,
+		plugins: [
+			nodeResolve(),
+			ts(),
+		],
 	},
-};
+];
