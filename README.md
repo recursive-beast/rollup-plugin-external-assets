@@ -56,10 +56,12 @@ function externalAssets(pattern: string | RegExp | (string | RegExp)[]);
 A picomatch pattern, or array of patterns, which correspond to assets the plugin should operate on.
 
 ```javascript
-// Process imports that reference images in the <working dir>/assets directory.
+// Operate on images located in the ./assets directory.
 externalAssets("assets/**/*.jpg");
-// Process imports that reference images in the <working dir>/assets directory, and all stylesheet files.
-externalAssets(["assets/**/*.{jpg,png}", /\.(css|scss)$/])
+
+// Operate on images located in the ./assets directory.
+// and all stylesheet files.
+externalAssets(["assets/**/*.{jpg,png}", /\.(css|scss)$/]);
 ```
 
 ## Contributing
