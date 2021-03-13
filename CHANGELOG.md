@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.2.0...v2.2.1) (2021-03-13)
+
+
+### Bug Fixes
+
+* correct export assignments in declaration files ([8fed136](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/8fed136fd9a9e64a50b946ea53066f5a5ad14d73))
+
 # [2.2.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.1.1...v2.2.0) (2021-03-08)
 
 
