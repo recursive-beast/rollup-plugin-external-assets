@@ -90,9 +90,6 @@ To run tests:
 npm test
 ```
 
-:memo: You might want to redirect snapshot diffs somewhere else instead of `stdout`.
-Checkout this [issue][7] for the package that produces the diffs.
-
 Note that rollup may emit warnings for unspecified options, or for some other reasons.
 I made sure they are ignored with the `no-rollup-warnings` flag in the npm test script.
 
