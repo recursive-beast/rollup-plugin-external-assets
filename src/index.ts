@@ -45,6 +45,8 @@ export default function externalAssets(pattern: FilterPattern): Plugin {
 
 			// In the output phase,
 			// We'll use this mapping to replace the hash with a relative path from a chunk to the emitted asset.
+			// Note that for two assets that have the same content, the hash is the same, so imports will get deduplicated,
+			// also, `this.emitFile` deduplicates in the same way.
 			hashToIdMap[hash] = id;
 
 			// Load a proxy module with a hash as the import.
