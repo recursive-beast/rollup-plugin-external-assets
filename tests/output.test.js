@@ -148,15 +148,6 @@ test("treeshake.moduleSideEffects = false", outputSnapshotMacro,
 	}
 );
 
-test.failing("dynamic imports", outputSnapshotMacro,
-	{
-		input: "tests/fixtures/src/index5.js",
-		plugins: [
-			externalAssets("tests/fixtures/assets/*"),
-		],
-	}
-);
-
 test("deduplicate assets with different names", outputSnapshotMacro,
 	{
 		input: "tests/fixtures/src/index6.js",

@@ -39,3 +39,12 @@ test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, outputS
 		],
 	}
 );
+
+test.failing("dynamic imports", outputSnapshotMacro,
+	{
+		input: "tests/fixtures/src/index5.js",
+		plugins: [
+			externalAssets("tests/fixtures/assets/*"),
+		],
+	}
+);
