@@ -37,3 +37,17 @@ export function getContentHash(filepath: string) {
 			.on("error", err => reject(err))
 	);
 }
+
+export function getIdDeduplicator() {
+	const hashToIdMap: Record<string, string | undefined> = {};
+
+	return async (id: string) => {
+		const hash = await getContentHash(id);
+		let result = hashToIdMap[hash];
+
+		if (result) return result;
+
+		hashToIdMap[hash] = id;
+		return id;
+	}
+}
