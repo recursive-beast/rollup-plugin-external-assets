@@ -1,49 +1,10 @@
-const { rollup } = require("rollup");
 const fs = require("fs/promises");
-
-function noop() { }
-
-const getChunksSnapshot = output => output.map(chunk => {
-	const whiteList = [
-		"code",
-		"fileName",
-		"name",
-		"isDynamicEntry",
-		"isEntry",
-		"isImplicitEntry",
-		"map",
-	];
-
-	const obj = {};
-	whiteList.forEach(key => {
-		let value = chunk[key];
-		// normalize for windows.
-		if (key === "code") value = value.replace(/\r\n/g, "\n");
-		obj[key] = value;
-	});
-	return obj;
-});
-
-const getAssetsSnapshot = output => output.map(asset => {
-	const whiteList = [
-		"fileName",
-		"name",
-	];
-
-	const obj = {};
-	whiteList.forEach(key => obj[key] = asset[key]);
-	return obj;
-});
+const { getAssetsSnapshot, getChunksSnapshot, getRollupBundle } = require("./helpers");
 
 module.exports.outputSnapshotMacro = async function (t, options) {
 	let { output: outputOptions = {}, ...inputOptions } = options;
 
-	if (process.argv.includes("no-rollup-warnings")) {
-		inputOptions = { ...inputOptions, onwarn: noop };
-	}
-
-	const bundle = await rollup(inputOptions);
-	t.teardown(async () => await bundle.close());
+	const bundle = await getRollupBundle(t, inputOptions);
 	const { output } = await bundle.generate(outputOptions);
 
 	const chunks = output.filter(element => element.type === "chunk");
