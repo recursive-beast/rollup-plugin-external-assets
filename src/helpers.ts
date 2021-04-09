@@ -27,11 +27,11 @@ export function getRelativeImportPath(from: string, to: string) {
 	return import_path;
 }
 
-export function getIdHash(id: string) {
+export function getContentHash(filepath: string) {
 	const md5sum = crypto.createHash("md5");
 
 	return new Promise<string>((resolve, reject) =>
-		fs.createReadStream(id)
+		fs.createReadStream(filepath)
 			.on("data", chunk => md5sum.update(chunk))
 			.on("end", () => resolve(md5sum.digest("hex")))
 			.on("error", err => reject(err))

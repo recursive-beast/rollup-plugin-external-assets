@@ -3,7 +3,7 @@ import path from "path";
 import { Plugin } from "rollup";
 import { createFilter, FilterPattern } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
-import { getIdHash, getOutputId, getRelativeImportPath } from "./helpers";
+import { getContentHash, getOutputId, getRelativeImportPath } from "./helpers";
 
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
@@ -41,7 +41,7 @@ export default function externalAssets(pattern: FilterPattern): Plugin {
 				|| !idFilter(id) // Filtered out id.
 			) return null;
 
-			const hash = await getIdHash(id);
+			const hash = await getContentHash(id);
 
 			// In the output phase,
 			// We'll use this mapping to replace the hash with a relative path from a chunk to the emitted asset.
