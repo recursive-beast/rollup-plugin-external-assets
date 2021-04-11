@@ -93,7 +93,7 @@ npm test
 ```
 
 Note that rollup may emit warnings for unspecified options, or for some other reasons.
-I made sure they are ignored with the `no-rollup-warnings` flag in the npm test script.
+I made sure they are ignored with the `ROLLUP_WARNINGS` environment variable in the npm test script.
 
 If you want to see all the warnings when running tests, use this command instead:
 

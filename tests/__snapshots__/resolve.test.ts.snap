@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve 1`] = `
+Array [
+  Object {
+    "code": "import png from \\"./assets/image-0fc60877.png\\";
+import text from \\"./assets/text-6d7076f2.txt\\";
+import \\"./assets/styles-fc0ceb37.css\\";
+import font from \\"./assets/open-sans-all-300-italic-abf6ec0a.woff\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+var _default$1 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+var _default = {
+	default: _default$1,
+	font,
+	non_string_literals: [1929, /^ab|b$/g, null, false],
+};
+
+export default _default;
+",
+    "fileName": "index3.js",
+    "isDynamicEntry": false,
+    "isEntry": true,
+    "isImplicitEntry": false,
+    "map": null,
+    "name": "index3",
+  },
+]
+`;
+
+exports[`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve 2`] = `
+Array [
+  Object {
+    "fileName": "assets/image-0fc60877.png",
+    "name": "image.png",
+  },
+  Object {
+    "fileName": "assets/text-6d7076f2.txt",
+    "name": "text.txt",
+  },
+  Object {
+    "fileName": "assets/styles-fc0ceb37.css",
+    "name": "styles.css",
+  },
+  Object {
+    "fileName": "assets/open-sans-all-300-italic-abf6ec0a.woff",
+    "name": "open-sans-all-300-italic.woff",
+  },
+]
+`;
+
+exports[`Resolve with @rollup/plugin-node-resolve 1`] = `
+Array [
+  Object {
+    "code": "import png from \\"./assets/image-0fc60877.png\\";
+import text from \\"./assets/text-6d7076f2.txt\\";
+import \\"./assets/styles-fc0ceb37.css\\";
+import font from \\"./assets/open-sans-all-300-italic-abf6ec0a.woff\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+var _default = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+var index2 = {
+	default: _default,
+	font,
+	non_string_literals: [1929, /^ab|b$/g, null, false],
+};
+
+export default index2;
+",
+    "fileName": "index2.js",
+    "isDynamicEntry": false,
+    "isEntry": true,
+    "isImplicitEntry": false,
+    "map": null,
+    "name": "index2",
+  },
+]
+`;
+
+exports[`Resolve with @rollup/plugin-node-resolve 2`] = `
+Array [
+  Object {
+    "fileName": "assets/image-0fc60877.png",
+    "name": "image.png",
+  },
+  Object {
+    "fileName": "assets/text-6d7076f2.txt",
+    "name": "text.txt",
+  },
+  Object {
+    "fileName": "assets/styles-fc0ceb37.css",
+    "name": "styles.css",
+  },
+  Object {
+    "fileName": "assets/open-sans-all-300-italic-abf6ec0a.woff",
+    "name": "open-sans-all-300-italic.woff",
+  },
+]
+`;

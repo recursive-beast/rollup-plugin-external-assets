@@ -1,18 +1,18 @@
-const test = require("ava");
-const { outputSnapshotMacro } = require("./macros");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const alias = require("@rollup/plugin-alias");
-const externalAssets = require("..");
+import { outputSnapshotMacro } from "./macros";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import alias from "@rollup/plugin-alias";
+import externalAssets from "../src/index";
 
-test("Skips resolving entrypoints", async t => {
+test("Skips resolving entrypoints", async () => {
 	const plugin = externalAssets("dummy_patern");
+	// @ts-ignore
 	const resolution = await plugin.resolveId("dummy_source", undefined, {});
 
-	t.is(resolution, null);
+	expect(resolution).toBe(null);
 });
 
-test(`Resolve with @rollup/plugin-node-resolve`, outputSnapshotMacro,
-	{
+test(`Resolve with @rollup/plugin-node-resolve`, () => {
+	return outputSnapshotMacro({
 		input: "tests/fixtures/src/index2.js",
 		plugins: [
 			nodeResolve({
@@ -20,11 +20,11 @@ test(`Resolve with @rollup/plugin-node-resolve`, outputSnapshotMacro,
 			}),
 			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 		],
-	}
-);
+	});
+});
 
-test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, outputSnapshotMacro,
-	{
+test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, () => {
+	return outputSnapshotMacro({
 		input: "tests/fixtures/src/sub/index3.js",
 		plugins: [
 			nodeResolve({
@@ -37,14 +37,14 @@ test(`Resolve with @rollup/plugin-alias && @rollup/plugin-node-resolve`, outputS
 			}),
 			externalAssets(["tests/fixtures/assets/*", /@fontsource\/open-sans/]),
 		],
-	}
-);
+	});
+});
 
-test.failing("dynamic imports", outputSnapshotMacro,
-	{
+test.skip("dynamic imports", () => {
+	return outputSnapshotMacro({
 		input: "tests/fixtures/src/index5.js",
 		plugins: [
 			externalAssets("tests/fixtures/assets/*"),
 		],
-	}
-);
+	});
+});
