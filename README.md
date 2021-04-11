@@ -105,16 +105,10 @@ Coverage report is located in `tests/coverage`.
 You might want to review it in your browser, and for example,
 write tests for non-covered blocks, or remove them if they're useless.
 
-To run tests and update snapshots:
+To run tests and update snapshots, pass the `-u` flag to [jest][8] through the `test` (or `test:warn`) npm script:
 
 ```sh
-npm run test:update
-```
-
-or (with rollup warnings):
-
-```sh
-npm run test:update:warn
+npm test -- -u
 ```
 
 ### Commiting changes
@@ -132,3 +126,4 @@ Please follow the [conventional commits][5] specification, because [semantic-rel
 [5]: https://www.conventionalcommits.org/en/v1.0.0/
 [6]: https://github.com/semantic-release/semantic-release
 [7]: https://github.com/concordancejs/concordance/issues/68
+[8]: https://jestjs.io/

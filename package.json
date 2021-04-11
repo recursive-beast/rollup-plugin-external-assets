@@ -11,8 +11,6 @@
   "scripts": {
     "test": "rimraf tests/coverage && cross-env ROLLUP_WARNINGS=false jest",
     "test:warn": "rimraf tests/coverage && cross-env ROLLUP_WARNINGS=true jest",
-    "test:update": "npm run test -- -u",
-    "test:update:warn": "npm run test:warn -- -u",
     "coverage": "codecov",
     "clean": "rimraf dist tests/coverage",
     "build": "rimraf dist && rollup -c",
