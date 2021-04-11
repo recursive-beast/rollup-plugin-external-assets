@@ -9,13 +9,13 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "del-cli tests/coverage && cross-env ROLLUP_WARNINGS=false jest",
-    "test:warn": "del-cli tests/coverage && cross-env ROLLUP_WARNINGS=true jest",
+    "test": "rimraf tests/coverage && cross-env ROLLUP_WARNINGS=false jest",
+    "test:warn": "rimraf tests/coverage && cross-env ROLLUP_WARNINGS=true jest",
     "test:update": "npm run test -- -u",
     "test:update:warn": "npm run test:warn -- -u",
     "coverage": "codecov",
-    "clean": "del-cli dist tests/coverage",
-    "build": "del-cli dist && rollup -c",
+    "clean": "rimraf dist tests/coverage",
+    "build": "rimraf dist && rollup -c",
     "prepare": "cd tests/fixtures && npm install"
   },
   "repository": {
@@ -48,10 +48,9 @@
     "@wessberg/rollup-plugin-ts": "^1.3.8",
     "codecov": "^3.8.1",
     "cross-env": "^7.0.3",
-    "del": "^6.0.0",
-    "del-cli": "^3.0.1",
     "husky": "^5.0.9",
     "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
     "rollup": "^2.39.0",
     "semantic-release": "^17.3.9",
     "ts-jest": "^26.5.4",
