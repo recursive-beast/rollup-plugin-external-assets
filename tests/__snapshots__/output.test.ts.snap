@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`deduplicate assets with different names 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image2-479dcdf1.png\\";
+Object {
+  "code": "import png from \\"./assets/image2-479dcdf1.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
 
@@ -22,39 +21,15 @@ var main = () => {
 console.log(png);
 main();
 ",
-    "fileName": "index6.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index6",
-  },
-]
+  "filename": "index6.js",
+}
 `;
 
-exports[`deduplicate assets with different names 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image2-479dcdf1.png",
-    "name": "image2.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
-`;
-
-exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name]_[hash].js' 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 1`] = `
+Object {
+  "code": "import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
-import { s as sayHi } from './chunks/sub/file2_509737eb.js';
+import { s as sayHi } from './chunks/sub/file2.js';
 import \\"./assets/styles-fc0ceb37.css\\";
 
 var index1 = () => {
@@ -65,17 +40,15 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
+  "filename": "index1.js",
+}
+`;
+
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 2`] = `
+Object {
+  "code": "import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
-import { s as sayHi } from './chunks/sub/file2_509737eb.js';
+import { s as sayHi } from './chunks/sub/file2.js';
 import \\"./assets/styles-fc0ceb37.css\\";
 
 var index4 = () => {
@@ -86,15 +59,13 @@ var index4 = () => {
 
 export default index4;
 ",
-    "fileName": "index4.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index4",
-  },
-  Object {
-    "code": "import \\"../../assets/styles-fc0ceb37.css\\";
+  "filename": "index4.js",
+}
+`;
+
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 3`] = `
+Object {
+  "code": "import \\"../../assets/styles-fc0ceb37.css\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -104,37 +75,13 @@ var sayHi = () => {
 
 export { sayHi as s };
 ",
-    "fileName": "chunks/sub/file2_509737eb.js",
-    "isDynamicEntry": false,
-    "isEntry": false,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "file2",
-  },
-]
-`;
-
-exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name]_[hash].js' 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "chunks/sub/file2.js",
+}
 `;
 
 exports[`output formats amd 1`] = `
-Array [
-  Object {
-    "code": "define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (png, text, styles_css) { 'use strict';
+Object {
+  "code": "define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (png, text, styles_css) { 'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -157,37 +104,13 @@ Array [
 
 });
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output formats amd 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "index1.js",
+}
 `;
 
 exports[`output formats cjs 1`] = `
-Array [
-  Object {
-    "code": "'use strict';
+Object {
+  "code": "'use strict';
 
 var png = require(\\"./assets/image-0fc60877.png\\");
 var text = require(\\"./assets/text-6d7076f2.txt\\");
@@ -212,37 +135,13 @@ var index1 = () => {
 
 module.exports = index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output formats cjs 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "index1.js",
+}
 `;
 
 exports[`output formats es 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
+Object {
+  "code": "import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
 
@@ -260,76 +159,13 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
+  "filename": "index1.js",
+}
 `;
-
-exports[`output formats es 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
-`;
-
-exports[`output formats iife 1`] = `
-Array [
-  Object {
-    "code": "var mybundle = (function (png, text) {
-	'use strict';
-
-	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-	var png__default = /*#__PURE__*/_interopDefaultLegacy(png);
-	var text__default = /*#__PURE__*/_interopDefaultLegacy(text);
-
-	// This import should not be removed unless specified by the user or some other plugin.
-
-	var sayHi = () => {
-		console.log(\\"hello\\");
-	};
-
-	var index1 = () => {
-		console.log(png__default['default']);
-		console.log(text__default['default']);
-		sayHi();
-	};
-
-	return index1;
-
-}(png, text));
-",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output formats iife 2`] = `Array []`;
 
 exports[`output formats system 1`] = `
-Array [
-  Object {
-    "code": "System.register('mybundle', [\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (exports) {
+Object {
+  "code": "System.register('mybundle', [\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (exports) {
 	'use strict';
 	var png, text;
 	return {
@@ -356,37 +192,13 @@ Array [
 	};
 });
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output formats system 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "index1.js",
+}
 `;
 
 exports[`output formats umd 1`] = `
-Array [
-  Object {
-    "code": "(function (global, factory) {
+Object {
+  "code": "(function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require(\\"./assets/image-0fc60877.png\\"), require(\\"./assets/text-6d7076f2.txt\\"), require(\\"./assets/styles-fc0ceb37.css\\")) :
 	typeof define === 'function' && define.amd ? define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.mybundle = factory(global.png, global.text));
@@ -413,39 +225,15 @@ Array [
 
 })));
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
+  "filename": "index1.js",
+}
 `;
 
-exports[`output formats umd 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
-`;
-
-exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]_[hash][extname]' 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"../../assets/sub/image_0fc60877.png\\";
-import text from \\"../../assets/sub/text_6d7076f2.txt\\";
-import \\"../../assets/sub/styles_fc0ceb37.css\\";
+exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]' 1`] = `
+Object {
+  "code": "import png from \\"../../assets/sub/image-0fc60877.png\\";
+import text from \\"../../assets/sub/text-6d7076f2.txt\\";
+import \\"../../assets/sub/styles-fc0ceb37.css\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -461,37 +249,13 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "a/b/index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]_[hash][extname]' 2`] = `
-Array [
-  Object {
-    "fileName": "assets/sub/image_0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/sub/text_6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/sub/styles_fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "a/b/index1.js",
+}
 `;
 
 exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"../../assets/image-0fc60877.png\\";
+Object {
+  "code": "import png from \\"../../assets/image-0fc60877.png\\";
 import text from \\"../../assets/text-6d7076f2.txt\\";
 import \\"../../assets/styles-fc0ceb37.css\\";
 
@@ -509,37 +273,13 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "a/b/index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "a/b/index1.js",
+}
 `;
 
 exports[`output.dir = 'sub/abcd' && preserveModules = true 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"../assets/image-0fc60877.png\\";
+Object {
+  "code": "import png from \\"../assets/image-0fc60877.png\\";
 import text from \\"../assets/text-6d7076f2.txt\\";
 import sayHi from '../file2.js';
 
@@ -551,26 +291,22 @@ var index4 = () => {
 
 export default index4;
 ",
-    "fileName": "sub/index4.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index4",
-  },
-  Object {
-    "code": "import text from \\"./assets/text-6d7076f2.txt\\";
+  "filename": "sub/index4.js",
+}
+`;
+
+exports[`output.dir = 'sub/abcd' && preserveModules = true 2`] = `
+Object {
+  "code": "import text from \\"./assets/text-6d7076f2.txt\\";
 export { default } from \\"./assets/text-6d7076f2.txt\\";
 ",
-    "fileName": "file1.js",
-    "isDynamicEntry": false,
-    "isEntry": false,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "file1",
-  },
-  Object {
-    "code": "import \\"./assets/styles-fc0ceb37.css\\";
+  "filename": "file1.js",
+}
+`;
+
+exports[`output.dir = 'sub/abcd' && preserveModules = true 3`] = `
+Object {
+  "code": "import \\"./assets/styles-fc0ceb37.css\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -580,37 +316,13 @@ var sayHi = () => {
 
 export default sayHi;
 ",
-    "fileName": "file2.js",
-    "isDynamicEntry": false,
-    "isEntry": false,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "file2",
-  },
-]
-`;
-
-exports[`output.dir = 'sub/abcd' && preserveModules = true 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "file2.js",
+}
 `;
 
 exports[`output.dir = 'sub/abcd' 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
+Object {
+  "code": "import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
 
@@ -628,39 +340,15 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
+  "filename": "index1.js",
+}
 `;
 
-exports[`output.dir = 'sub/abcd' 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
-`;
-
-exports[`output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]_[hash][extname]' 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/sub/image_0fc60877.png\\";
-import text from \\"./assets/sub/text_6d7076f2.txt\\";
-import \\"./assets/sub/styles_fc0ceb37.css\\";
+exports[`output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]' 1`] = `
+Object {
+  "code": "import png from \\"./assets/sub/image-0fc60877.png\\";
+import text from \\"./assets/sub/text-6d7076f2.txt\\";
+import \\"./assets/sub/styles-fc0ceb37.css\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -676,113 +364,13 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]_[hash][extname]' 2`] = `
-Array [
-  Object {
-    "fileName": "assets/sub/image_0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/sub/text_6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/sub/styles_fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
-`;
-
-exports[`output.sourcemaps = true 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
-import text from \\"./assets/text-6d7076f2.txt\\";
-import \\"./assets/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-var index1 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index1;
-",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": SourceMap {
-      "file": "index1.js",
-      "mappings": ";;;;AAAA;;AAGA,YAAe,MAAM;QACb,CAAC,GAAG,CAAC,OAAO,CAAC,CAAC;AACtB,CAAC;;ACDD,aAAe,MAAM;QACb,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC;QACV,CAAC,GAAG,CAAC,IAAI,CAAC,CAAC;MACb,EAAE,CAAC;AACT,CAAC;;",
-      "names": Array [],
-      "sources": Array [
-        "tests/fixtures/src/file2.js",
-        "tests/fixtures/src/index1.js",
-      ],
-      "sourcesContent": Array [
-        "// This import should not be removed unless specified by the user or some other plugin.
-import \\"../assets/styles.css\\";
-
-export default () => {
-	console.log(\\"hello\\");
-};
-",
-        "import png from \\"../assets/image.png\\";
-import text from \\"./file1\\";
-import sayHi from \\"./file2\\";
-
-export default () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-",
-      ],
-      "version": 3,
-    },
-    "name": "index1",
-  },
-]
-`;
-
-exports[`output.sourcemaps = true 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-  Object {
-    "fileName": "assets/styles-fc0ceb37.css",
-    "name": "styles.css",
-  },
-]
+  "filename": "out.js",
+}
 `;
 
 exports[`treeshake.moduleSideEffects = false 1`] = `
-Array [
-  Object {
-    "code": "import png from \\"./assets/image-0fc60877.png\\";
+Object {
+  "code": "import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
@@ -799,25 +387,6 @@ var index1 = () => {
 
 export default index1;
 ",
-    "fileName": "index1.js",
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "name": "index1",
-  },
-]
-`;
-
-exports[`treeshake.moduleSideEffects = false 2`] = `
-Array [
-  Object {
-    "fileName": "assets/image-0fc60877.png",
-    "name": "image.png",
-  },
-  Object {
-    "fileName": "assets/text-6d7076f2.txt",
-    "name": "text.txt",
-  },
-]
+  "filename": "index1.js",
+}
 `;
