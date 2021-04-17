@@ -46,23 +46,48 @@ export default {
 ## API
 
 ```typescript
-function externalAssets(pattern: string | RegExp | (string | RegExp)[]);
+function externalAssets(
+	include?: string | RegExp | (string | RegExp)[],
+	exclude?: string | RegExp | (string | RegExp)[],
+	options?: { resolve?: string | false | null },
+);
 ```
 
-### pattern
+### include / exclude
 
 `string | RegExp | (string | RegExp)[]`
 
-A picomatch pattern, or array of patterns, which correspond to assets the plugin should operate on.
+A valid [picomatch][9] pattern, or array of patterns.
+If `include` is omitted or has zero length, all imports will be considered as assets.
+Otherwise, an import path must match one or more of the `include` patterns,
+and must not match any of the `exclude` patterns.
+
+**Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
 
 ```javascript
+import path from "path";
+
 // Operate on images located in the ./assets directory.
 externalAssets("assets/**/*.jpg");
 
 // Operate on images located in the ./assets directory.
 // and all stylesheet files.
 externalAssets(["assets/**/*.{jpg,png}", /\.(css|scss)$/]);
+
+// Operate on all assets except text files.
+externalAssets("assets/**/*", "**/*.txt");
+
+// Operate on all assets except text files.
+// `__dirname` is the pattern's base dir instead of `process.cwd()`.
+externalAssets(path.resolve(__dirname, "assets/**/*"), "**/*.txt");
 ```
+
+### options
+
+- `resolve` `{string | false | null}`: Optionally resolves the patterns against a directory other than `process.cwd()`.
+If a `string` is specified, then the value will be used as the base directory.
+Relative paths will be resolved against `process.cwd()` first.
+If `false`, then the patterns will not be resolved against any directory.
 
 ## Contributing
 
@@ -127,3 +152,4 @@ Please follow the [conventional commits][5] specification, because [semantic-rel
 [6]: https://github.com/semantic-release/semantic-release
 [7]: https://github.com/concordancejs/concordance/issues/68
 [8]: https://jestjs.io/
+[9]: https://github.com/micromatch/picomatch#globbing-features

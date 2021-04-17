@@ -8,15 +8,33 @@ import { getIdDeduplicator, getOutputId, getRelativeImportPath } from "./helpers
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
 
+interface Options {
+	/**
+	 * Optionally resolves the patterns against a directory other than `process.cwd()`.
+	 * If a `string` is specified, then the value will be used as the base directory.
+	 * Relative paths will be resolved against `process.cwd()` first.
+	 * If `false`, then the patterns will not be resolved against any directory.
+	 */
+	resolve?: string | false | null;
+}
+
 /**
  * Make assets external but include them in the output.
- * @param pattern - A picomatch pattern, or array of patterns,
- * which correspond to assets the plugin should operate on.
+ * @param include A valid picomatch pattern, or array of patterns.
+ * If `include` is omitted or has zero length, all imports will be processed.
+ *
+ * **Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
+ * @param exclude If an asset matches one of the `exclude` patterns, its import will not be processed.
+ *
+ * **Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
+ * @param options The options object.
  */
-export default function externalAssets(pattern: FilterPattern): Plugin {
-	if (!pattern) throw new Error("please specify a pattern for targeted assets");
-
-	const idFilter = createFilter(pattern);
+export default function externalAssets(
+	include?: FilterPattern,
+	exclude?: FilterPattern,
+	options?: Options,
+): Plugin {
+	const idFilter = createFilter(include, exclude, options);
 	const deduplicateId = getIdDeduplicator();
 
 	return {
@@ -35,11 +53,7 @@ export default function externalAssets(pattern: FilterPattern): Plugin {
 		},
 
 		async load(id) {
-			if (
-				id.startsWith("\0") // Virtual module.
-				|| id.includes("?") // Id reserved by some other plugin.
-				|| !idFilter(id) // Filtered out id.
-			) return null;
+			if (!idFilter(id)) return null;
 
 			// For two or more assets with the same content, only one asset is going to be emitted.
 			// `this.emitFile` deduplicates in the same way.
