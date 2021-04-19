@@ -41,15 +41,16 @@ export default function externalAssets(
 		name: PLUGIN_NAME,
 
 		async resolveId(source, importer) {
-			if (
-				!importer // Skip entrypoints.
-				|| !source.startsWith(PREFIX) // Not one of our internal ids (see the `load` hook).
-			) return null;
+			// We're not resolving anything here,
+			// we only need to ignore the proxy imports introduced in the loaded module (check the load hook).
+			if (importer && source.startsWith(PREFIX)) {
+				return {
+					id: source,
+					external: true
+				};
+			}
 
-			return {
-				id: source,
-				external: true
-			};
+			return null;
 		},
 
 		async load(id) {
@@ -90,10 +91,7 @@ export default function externalAssets(
 				visitLiteral(nodePath) {
 					const value = nodePath.node.value;
 
-					if (
-						typeof value !== "string" // We're only concerned with string literals.
-						|| !value.startsWith(PREFIX) // Not one of our internal ids (see the `load` hook).
-					) return this.traverse(nodePath);
+					if (typeof value !== "string" || !value.startsWith(PREFIX)) return this.traverse(nodePath);
 
 					const target_id = value.slice(PREFIX.length);
 
