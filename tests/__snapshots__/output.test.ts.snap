@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deduplicate assets with different names 1`] = `
-Object {
-  "code": "import png from \\"./assets/image2-479dcdf1.png\\";
+exports[`deduplicate assets with different names: index6 1`] = `
+"import png from \\"./assets/image2-479dcdf1.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
 
@@ -20,14 +19,24 @@ var main = () => {
 
 console.log(png);
 main();
-",
-  "filename": "index6.js",
-}
+"
 `;
 
-exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 1`] = `
-Object {
-  "code": "import png from \\"./assets/image-0fc60877.png\\";
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js': file2 1`] = `
+"import \\"../../assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+export { sayHi as s };
+"
+`;
+
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js': index1 1`] = `
+"import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import { s as sayHi } from './chunks/sub/file2.js';
 import \\"./assets/styles-fc0ceb37.css\\";
@@ -39,14 +48,11 @@ var index1 = () => {
 };
 
 export default index1;
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 2`] = `
-Object {
-  "code": "import png from \\"./assets/image-0fc60877.png\\";
+exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js': index4 1`] = `
+"import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import { s as sayHi } from './chunks/sub/file2.js';
 import \\"./assets/styles-fc0ceb37.css\\";
@@ -58,14 +64,13 @@ var index4 = () => {
 };
 
 export default index4;
-",
-  "filename": "index4.js",
-}
+"
 `;
 
-exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js' 3`] = `
-Object {
-  "code": "import \\"../../assets/styles-fc0ceb37.css\\";
+exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]': index1 1`] = `
+"import png from \\"../../assets/sub/image-0fc60877.png\\";
+import text from \\"../../assets/sub/text-6d7076f2.txt\\";
+import \\"../../assets/sub/styles-fc0ceb37.css\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -73,15 +78,115 @@ var sayHi = () => {
 	console.log(\\"hello\\");
 };
 
-export { sayHi as s };
-",
-  "filename": "chunks/sub/file2.js",
-}
+var index1 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+export default index1;
+"
 `;
 
-exports[`output formats amd 1`] = `
-Object {
-  "code": "define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (png, text, styles_css) { 'use strict';
+exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js': index1 1`] = `
+"import png from \\"../../assets/image-0fc60877.png\\";
+import text from \\"../../assets/text-6d7076f2.txt\\";
+import \\"../../assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+var index1 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+export default index1;
+"
+`;
+
+exports[`output.dir = 'sub/abcd' && preserveModules = true: file1 1`] = `
+"import text from \\"./assets/text-6d7076f2.txt\\";
+export { default } from \\"./assets/text-6d7076f2.txt\\";
+"
+`;
+
+exports[`output.dir = 'sub/abcd' && preserveModules = true: file2 1`] = `
+"import \\"./assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+export default sayHi;
+"
+`;
+
+exports[`output.dir = 'sub/abcd' && preserveModules = true: index4 1`] = `
+"import png from \\"../assets/image-0fc60877.png\\";
+import text from \\"../assets/text-6d7076f2.txt\\";
+import sayHi from '../file2.js';
+
+var index4 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+export default index4;
+"
+`;
+
+exports[`output.dir = 'sub/abcd': index1 1`] = `
+"import png from \\"./assets/image-0fc60877.png\\";
+import text from \\"./assets/text-6d7076f2.txt\\";
+import \\"./assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+var index1 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+export default index1;
+"
+`;
+
+exports[`output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]': index1 1`] = `
+"import png from \\"./assets/sub/image-0fc60877.png\\";
+import text from \\"./assets/sub/text-6d7076f2.txt\\";
+import \\"./assets/sub/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+var index1 = () => {
+	console.log(png);
+	console.log(text);
+	sayHi();
+};
+
+export default index1;
+"
+`;
+
+exports[`output.format = 'amd': index1 1`] = `
+"define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (png, text, styles_css) { 'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -103,14 +208,11 @@ Object {
 	return index1;
 
 });
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`output formats cjs 1`] = `
-Object {
-  "code": "'use strict';
+exports[`output.format = 'cjs': index1 1`] = `
+"'use strict';
 
 var png = require(\\"./assets/image-0fc60877.png\\");
 var text = require(\\"./assets/text-6d7076f2.txt\\");
@@ -134,14 +236,11 @@ var index1 = () => {
 };
 
 module.exports = index1;
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`output formats es 1`] = `
-Object {
-  "code": "import png from \\"./assets/image-0fc60877.png\\";
+exports[`output.format = 'es': index1 1`] = `
+"import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
 
@@ -158,14 +257,11 @@ var index1 = () => {
 };
 
 export default index1;
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`output formats system 1`] = `
-Object {
-  "code": "System.register('mybundle', [\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (exports) {
+exports[`output.format = 'system': index1 1`] = `
+"System.register([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (exports) {
 	'use strict';
 	var png, text;
 	return {
@@ -191,17 +287,14 @@ Object {
 		}
 	};
 });
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`output formats umd 1`] = `
-Object {
-  "code": "(function (global, factory) {
+exports[`output.format = 'umd': index1 1`] = `
+"(function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require(\\"./assets/image-0fc60877.png\\"), require(\\"./assets/text-6d7076f2.txt\\"), require(\\"./assets/styles-fc0ceb37.css\\")) :
 	typeof define === 'function' && define.amd ? define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.mybundle = factory(global.png, global.text));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.test = factory(global.png, global.text));
 }(this, (function (png, text) { 'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -224,153 +317,11 @@ Object {
 	return index1;
 
 })));
-",
-  "filename": "index1.js",
-}
+"
 `;
 
-exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]' 1`] = `
-Object {
-  "code": "import png from \\"../../assets/sub/image-0fc60877.png\\";
-import text from \\"../../assets/sub/text-6d7076f2.txt\\";
-import \\"../../assets/sub/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-var index1 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index1;
-",
-  "filename": "a/b/index1.js",
-}
-`;
-
-exports[`output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' 1`] = `
-Object {
-  "code": "import png from \\"../../assets/image-0fc60877.png\\";
-import text from \\"../../assets/text-6d7076f2.txt\\";
-import \\"../../assets/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-var index1 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index1;
-",
-  "filename": "a/b/index1.js",
-}
-`;
-
-exports[`output.dir = 'sub/abcd' && preserveModules = true 1`] = `
-Object {
-  "code": "import png from \\"../assets/image-0fc60877.png\\";
-import text from \\"../assets/text-6d7076f2.txt\\";
-import sayHi from '../file2.js';
-
-var index4 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index4;
-",
-  "filename": "sub/index4.js",
-}
-`;
-
-exports[`output.dir = 'sub/abcd' && preserveModules = true 2`] = `
-Object {
-  "code": "import text from \\"./assets/text-6d7076f2.txt\\";
-export { default } from \\"./assets/text-6d7076f2.txt\\";
-",
-  "filename": "file1.js",
-}
-`;
-
-exports[`output.dir = 'sub/abcd' && preserveModules = true 3`] = `
-Object {
-  "code": "import \\"./assets/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-export default sayHi;
-",
-  "filename": "file2.js",
-}
-`;
-
-exports[`output.dir = 'sub/abcd' 1`] = `
-Object {
-  "code": "import png from \\"./assets/image-0fc60877.png\\";
-import text from \\"./assets/text-6d7076f2.txt\\";
-import \\"./assets/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-var index1 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index1;
-",
-  "filename": "index1.js",
-}
-`;
-
-exports[`output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]' 1`] = `
-Object {
-  "code": "import png from \\"./assets/sub/image-0fc60877.png\\";
-import text from \\"./assets/sub/text-6d7076f2.txt\\";
-import \\"./assets/sub/styles-fc0ceb37.css\\";
-
-// This import should not be removed unless specified by the user or some other plugin.
-
-var sayHi = () => {
-	console.log(\\"hello\\");
-};
-
-var index1 = () => {
-	console.log(png);
-	console.log(text);
-	sayHi();
-};
-
-export default index1;
-",
-  "filename": "out.js",
-}
-`;
-
-exports[`treeshake.moduleSideEffects = false 1`] = `
-Object {
-  "code": "import png from \\"./assets/image-0fc60877.png\\";
+exports[`treeshake.moduleSideEffects = false: index1 1`] = `
+"import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
@@ -386,7 +337,5 @@ var index1 = () => {
 };
 
 export default index1;
-",
-  "filename": "index1.js",
-}
+"
 `;

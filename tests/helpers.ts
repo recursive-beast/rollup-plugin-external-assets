@@ -1,5 +1,3 @@
-import path from "path";
-import fsp from "fs/promises";
 import { rollup, OutputChunk, OutputAsset, InputOptions, OutputOptions, RollupBuild } from "rollup";
 
 export function noop() { }
@@ -33,17 +31,4 @@ export function getRollupOutput(inputOptions: InputOptions, outputOptions?: Outp
 			assets: output.filter(isAsset),
 		}))
 		.finally(() => bundle?.close());
-}
-
-export async function getAssetsExpectation(filepaths: string[]) {
-	const promises = filepaths.map(async filepath => ({
-		type: "asset",
-		name: path.basename(filepath),
-		source: await fsp.readFile(filepath),
-	}));
-
-	const assets = await Promise.all(promises);
-	const assetObjects = assets.map(assetObject => expect.objectContaining(assetObject));
-
-	return expect.arrayContaining(assetObjects);
 }
