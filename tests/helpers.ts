@@ -1,4 +1,9 @@
-import { rollup, OutputChunk, OutputAsset, InputOptions, OutputOptions, RollupBuild } from "rollup";
+import path from "path";
+import fs from "fs/promises";
+import fse from "fs-extra";
+import os from "os";
+import { rollup, OutputChunk, OutputAsset, InputOptions, OutputOptions, RollupBuild, RollupWatcher, RollupWatcherEvent } from "rollup";
+import pkg from "../package.json";
 
 export function noop() { }
 
@@ -32,3 +37,27 @@ export function getRollupOutput(inputOptions: InputOptions, outputOptions?: Outp
 		}))
 		.finally(() => bundle?.close());
 }
+
+export async function copyDirToTempdir(src: string) {
+	const prefix = path.join(os.tmpdir(), pkg.name, "/");
+	await fse.ensureDir(prefix);
+	const tempdir = await fs.mkdtemp(prefix);
+	await fse.copy(src, tempdir);
+	return tempdir;
+}
+
+export const listenForRebuild = (watcher: RollupWatcher, changeTrigger: () => void) => new Promise<RollupBuild>((resolve, reject) => {
+
+	function callback(event: RollupWatcherEvent) {
+		if (event.code !== "ERROR" && event.code !== "BUNDLE_END") watcher.once("event", callback);
+		else {
+			if (event.code === "ERROR") reject(event.error);
+			if (event.code === "BUNDLE_END") resolve(event.result);
+
+			event.result?.close();
+		}
+	}
+
+	watcher.once("event", callback);
+	changeTrigger();
+});
