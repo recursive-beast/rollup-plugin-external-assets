@@ -7,8 +7,6 @@
 # rollup-plugin-external-assets
 > A rollup plugin to make assets external but include them in the output.
 
-:memo: Since library bundling is the primary use of this plugin, dynamic imports are not supported. Use at your own risk.
-
 ## Installation
 
 Via [npm][2]

@@ -23,6 +23,46 @@ main();
 "
 `;
 
+exports[`dynamic imports && duplicate assets: index7 1`] = `
+"import png2 from \\"./assets/image2-479dcdf1.png\\";
+import text from \\"./assets/text-6d7076f2.txt\\";
+import \\"./assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+import(\\"./assets/image2-479dcdf1.png\\")
+	.then(png => console.log(png))
+	.catch(err => console.error(err));
+
+console.log(text);
+console.log(png2);
+sayHi();
+"
+`;
+
+exports[`dynamic imports: index5 1`] = `
+"import text from \\"./assets/text-6d7076f2.txt\\";
+import \\"./assets/styles-fc0ceb37.css\\";
+
+// This import should not be removed unless specified by the user or some other plugin.
+
+var sayHi = () => {
+	console.log(\\"hello\\");
+};
+
+import(\\"./assets/image-0fc60877.png\\")
+	.then(png => console.log(png))
+	.catch(err => console.error(err));
+
+console.log(text);
+sayHi();
+"
+`;
+
 exports[`multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js': file2 1`] = `
 "import \\"../../assets/styles-fc0ceb37.css\\";
 

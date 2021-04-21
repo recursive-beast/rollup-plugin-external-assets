@@ -58,6 +58,19 @@ const specs: [string, string, (ChangeTrigger | string[])[]][] = [
 			["assets/text.txt", "assets/image.png", "assets/styles.css"],
 		],
 	],
+	[
+		"with dynamic imports",
+		"src/index5.js",
+		[
+			["assets/text.txt", "assets/image.png", "assets/styles.css"],
+			async fixture_dir => await fs.appendFile(path.join(fixture_dir, "assets/text.txt"), "blabla"),
+			["assets/text.txt", "assets/image.png", "assets/styles.css"],
+			async fixture_dir => await fs.appendFile(path.join(fixture_dir, "assets/image.png"), "blabla"),
+			["assets/text.txt", "assets/image.png", "assets/styles.css"],
+			async fixture_dir => await fs.appendFile(path.join(fixture_dir, "assets/styles.css"), "blabla"),
+			["assets/text.txt", "assets/image.png", "assets/styles.css"],
+		],
+	],
 ];
 
 const watchers = new Map<string, RollupWatcher>();
@@ -107,5 +120,3 @@ test.each(specs)("%s", async (title, inputFixture, sequence) => {
 		expect(bundle.watchFiles).toEqual(expect.arrayContaining(sequence[i + 1] as string[]));
 	}
 });
-
-test.todo("with dynamic imports");

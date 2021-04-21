@@ -53,6 +53,23 @@ export default function externalAssets(
 			return null;
 		},
 
+		async resolveDynamicImport(specifier, importer) {
+			if (typeof specifier !== "string") return null;
+
+			const resolution = await this.resolve(specifier, importer, { skipSelf: true });
+
+			if (!resolution || !idFilter(resolution.id)) return null;
+
+			assets.set(resolution.id, await fs.readFile(resolution.id));
+
+			this.addWatchFile(resolution.id);
+
+			return {
+				id: PREFIX + resolution.id,
+				external: true,
+			};
+		},
+
 		async load(id) {
 			if (!idFilter(id)) return null;
 

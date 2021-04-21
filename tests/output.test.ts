@@ -22,7 +22,7 @@ beforeAll(async () => {
 	}
 });
 
-const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
+const specs: [string, InputOptions, OutputOptions, string[], { name: string | RegExp, filepath: string }[]][] = [
 	[
 		"output.format = 'es'",
 		{
@@ -33,7 +33,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			format: "es",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.format = 'cjs'",
@@ -45,7 +58,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			format: "cjs",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.format = 'amd'",
@@ -57,7 +83,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			format: "amd",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.format = 'umd'",
@@ -70,7 +109,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			name: "test",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.format = 'system'",
@@ -82,7 +134,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			format: "system",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.dir = 'sub/abcd'",
@@ -94,7 +159,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			dir: "sub/abcd",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js'",
@@ -107,7 +185,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			entryFileNames: "a/b/[name].js",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.dir = 'sub/abcd' && output.entryFileNames = 'a/b/[name].js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]'",
@@ -121,7 +212,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			assetFileNames: "assets/sub/[name]-[hash][extname]",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.file = 'sub/abcd/out.js' && output.assetFileNames = 'assets/sub/[name]-[hash][extname]'",
@@ -134,7 +238,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			assetFileNames: "assets/sub/[name]-[hash][extname]",
 		},
 		["index1"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"output.dir = 'sub/abcd' && preserveModules = true",
@@ -147,7 +264,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			preserveModules: true,
 		},
 		["index4", "file1", "file2"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"multiple inputs with shared chunks && output.chunkFileNames = 'chunks/sub/[name].js'",
@@ -159,7 +289,20 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 			chunkFileNames: "chunks/sub/[name].js"
 		},
 		["index4", "index1", "file2"],
-		["image.png", "styles.css", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"treeshake.moduleSideEffects = false",
@@ -170,7 +313,16 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 		},
 		{},
 		["index1"],
-		["image.png", "text.txt"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 	[
 		"deduplicate assets with different names",
@@ -180,11 +332,70 @@ const specs: [string, InputOptions, OutputOptions, string[], string[]][] = [
 		},
 		{},
 		["index6"],
-		["image2.png", "styles.css", "text.txt"],
+		[
+			{
+				name: /^image2?\.png$/,
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
+	],
+	[
+		"dynamic imports",
+		{
+			input: "tests/fixtures/src/index5.js",
+			plugins: [externalAssets("tests/fixtures/assets/*")],
+		},
+		{},
+		["index5"],
+		[
+			{
+				name: "image.png",
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
+	],
+	[
+		"dynamic imports && duplicate assets",
+		{
+			input: "tests/fixtures/src/index7.js",
+			plugins: [externalAssets("tests/fixtures/assets/*")],
+		},
+		{},
+		["index7"],
+		[
+			{
+				name: /^image2?\.png$/,
+				filepath: path.resolve("tests/fixtures/assets/image.png"),
+			},
+			{
+				name: "styles.css",
+				filepath: path.resolve("tests/fixtures/assets/styles.css"),
+			},
+			{
+				name: "text.txt",
+				filepath: path.resolve("tests/fixtures/assets/text.txt"),
+			},
+		],
 	],
 ];
 
-test.each(specs)("%s", async (title, inputOptions, outputOptions, expectedChunkNames, expectedAssetNames) => {
+test.each(specs)("%s", async (title, inputOptions, outputOptions, expectedChunkNames, expectedAssets) => {
 	const { chunks, assets } = await getRollupOutput(inputOptions, outputOptions);
 
 	expect(chunks.length).toBe(expectedChunkNames.length);
@@ -197,16 +408,12 @@ test.each(specs)("%s", async (title, inputOptions, outputOptions, expectedChunkN
 		expect(chunk.code).toMatchSnapshot(expectedChunkNames[index]);
 	}
 
-	expect(assets.length).toBe(expectedAssetNames.length);
+	expect(assets.length).toBe(expectedAssets.length);
 
-	for (const expectedAsetName of expectedAssetNames) {
-		const asset_filepath = path.resolve("tests/fixtures/assets", expectedAsetName);
-
+	for (const expectedAsset of expectedAssets) {
 		expect(assets).toContainEqual(expect.objectContaining({
-			name: expectedAsetName,
-			source: assetBuffersMap[asset_filepath],
+			name: expect.stringMatching(expectedAsset.name),
+			source: assetBuffersMap[expectedAsset.filepath],
 		}));
 	}
 });
-
-test.todo("dynamic imports");
