@@ -1,6 +1,4 @@
-import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import { OutputOptions } from "rollup";
 
 export function getOutputId(filename: string, outputOptions: OutputOptions) {
@@ -25,29 +23,4 @@ export function getRelativeImportPath(from: string, to: string) {
 	}
 
 	return import_path;
-}
-
-export function getContentHash(filepath: string) {
-	const md5sum = crypto.createHash("md5");
-
-	return new Promise<string>((resolve, reject) =>
-		fs.createReadStream(filepath)
-			.on("data", chunk => md5sum.update(chunk))
-			.on("end", () => resolve(md5sum.digest("hex")))
-			.on("error", err => reject(err))
-	);
-}
-
-export function getIdDeduplicator() {
-	const hashToIdMap: Record<string, string | undefined> = {};
-
-	return async (id: string) => {
-		const hash = await getContentHash(id);
-		let result = hashToIdMap[hash];
-
-		if (result) return result;
-
-		hashToIdMap[hash] = id;
-		return id;
-	}
 }

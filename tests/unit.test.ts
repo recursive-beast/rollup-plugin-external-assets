@@ -1,23 +1,5 @@
 import path from "path";
-import {
-	getOutputId,
-	getIdDeduplicator,
-} from "../src/helpers";
-
-test("getIdDeduplicator", async () => {
-	const deduplicateId = getIdDeduplicator();
-
-	const image = path.resolve("tests/fixtures/assets/image.png");
-	const image2 = path.resolve("tests/fixtures/assets/image2.png");
-	const text = path.resolve("tests/fixtures/assets/text.txt");
-
-	expect(async () => await deduplicateId("/non/existent/path")).rejects.toThrow();
-	expect(await deduplicateId(image)).toBe(image);
-	expect(await deduplicateId(text)).toBe(text);
-	expect(await deduplicateId(image2)).toBe(image);
-	expect(await deduplicateId(image)).toBe(image);
-	expect(await deduplicateId(image2)).toBe(image);
-});
+import { getOutputId } from "../src/helpers";
 
 test("getOutputId", () => {
 	expect(getOutputId("a.ext", { dir: "out" })).toBe(path.resolve("out/a.ext"));

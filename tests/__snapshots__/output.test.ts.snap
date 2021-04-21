@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`deduplicate assets with different names: index6 1`] = `
-"import png from \\"./assets/image2-479dcdf1.png\\";
+"import png from \\"./assets/image-0fc60877.png\\";
 import text from \\"./assets/text-6d7076f2.txt\\";
 import \\"./assets/styles-fc0ceb37.css\\";
+import png2 from \\"./assets/image-0fc60877.png\\";
 
 // This import should not be removed unless specified by the user or some other plugin.
 
@@ -17,7 +18,7 @@ var main = () => {
 	sayHi();
 };
 
-console.log(png);
+console.log(png2);
 main();
 "
 `;

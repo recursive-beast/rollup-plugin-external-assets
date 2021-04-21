@@ -3,7 +3,7 @@ import path from "path";
 import { Plugin } from "rollup";
 import { createFilter, FilterPattern } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
-import { getIdDeduplicator, getOutputId, getRelativeImportPath } from "./helpers";
+import { getOutputId, getRelativeImportPath } from "./helpers";
 
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
@@ -36,7 +36,6 @@ export default function externalAssets(
 ): Plugin {
 	const idFilter = createFilter(include, exclude, options);
 	const assets = new Map<string, Buffer>();
-	const deduplicateId = getIdDeduplicator();
 
 	return {
 		name: PLUGIN_NAME,
@@ -56,10 +55,6 @@ export default function externalAssets(
 
 		async load(id) {
 			if (!idFilter(id)) return null;
-
-			// For two or more assets with the same content, only one asset is going to be emitted.
-			// `this.emitFile` deduplicates in the same way.
-			id = await deduplicateId(id);
 
 			assets.set(id, await fs.readFile(id));
 
