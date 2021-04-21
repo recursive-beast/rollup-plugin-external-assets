@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import { Plugin } from "rollup";
 import { createFilter, FilterPattern } from "@rollup/pluginutils";
@@ -35,6 +35,7 @@ export default function externalAssets(
 	options?: Options,
 ): Plugin {
 	const idFilter = createFilter(include, exclude, options);
+	const assets = new Map<string, Buffer>();
 	const deduplicateId = getIdDeduplicator();
 
 	return {
@@ -59,6 +60,8 @@ export default function externalAssets(
 			// For two or more assets with the same content, only one asset is going to be emitted.
 			// `this.emitFile` deduplicates in the same way.
 			id = await deduplicateId(id);
+
+			assets.set(id, await fs.readFile(id));
 
 			// Load a proxy module that rollup will discard in favor of inligning the imports.
 			// The benefit of doing it this way, instead of resolving asset imports to external ids,
@@ -98,7 +101,7 @@ export default function externalAssets(
 					// Emit the targeted asset.
 					const asset_reference_id = rollup_context.emitFile({
 						type: "asset",
-						source: fs.readFileSync(target_id),
+						source: assets.get(target_id),
 						name: path.basename(target_id),
 					});
 
