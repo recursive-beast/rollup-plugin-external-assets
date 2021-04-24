@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { Plugin } from "rollup";
-import { createFilter, FilterPattern } from "@rollup/pluginutils";
+import { createFilter, FilterPattern, normalizePath } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
 import { getOutputId, getRelativeImportPath, normalizeFilterPattern } from "./helpers";
 
@@ -62,12 +62,15 @@ export default function externalAssets(
 
 			if (!resolution || !idFilter(resolution.id)) return null;
 
-			assets.set(resolution.id, await fs.readFile(resolution.id));
+			const id = resolution.id;
+			const normalizedId = normalizePath(id);
 
-			this.addWatchFile(resolution.id);
+			assets.set(normalizedId, await fs.readFile(id));
+
+			this.addWatchFile(id);
 
 			return {
-				id: PREFIX + resolution.id,
+				id: PREFIX + normalizedId,
 				external: true,
 			};
 		},
@@ -75,13 +78,15 @@ export default function externalAssets(
 		async load(id) {
 			if (!idFilter(id)) return null;
 
-			assets.set(id, await fs.readFile(id));
+			const normalizedId = normalizePath(id);
+
+			assets.set(normalizedId, await fs.readFile(id));
 
 			// Load a proxy module that rollup will discard in favor of inligning the imports.
 			// The benefit of doing it this way, instead of resolving asset imports to external ids,
 			// is that we get watch mode support out of the box.
-			return `export * from "${PREFIX + id}";\n`
-				+ `export { default } from "${PREFIX + id}";\n`;
+			return `export * from "${PREFIX + normalizedId}";\n`
+				+ `export { default } from "${PREFIX + normalizedId}";\n`;
 		},
 
 		async renderChunk(code, chunk, outputOptions) {
