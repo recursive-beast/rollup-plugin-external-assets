@@ -5,7 +5,7 @@ os:
 language: node_js
 node_js: lts/*
 script: npm test -- --coverage
-after_success: npm run coverage
+after_success: if [ "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" ]; then npm run coverage; fi
 jobs:
   include:
     - stage: deploy
