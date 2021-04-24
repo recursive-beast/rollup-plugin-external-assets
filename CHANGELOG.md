@@ -1,3 +1,29 @@
+# [3.0.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.2.1...v3.0.0) (2021-04-24)
+
+
+### Bug Fixes
+
+* errors caused by non-normalized windows paths ([cf9f716](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/cf9f716c4fcc024fe959dfca7a9d96b88c85fd4d))
+
+
+### Code Refactoring
+
+* delegate asset deduplication to this.emitFile ([adafff7](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/adafff7e583c5f6fab11dce892f7607a3ea40c7a))
+
+
+### Features
+
+* added full support for dynamic imports ([f16c69d](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/f16c69d44a386962251da33c7e34e9b8f98415e5))
+* filtering paths is delegated to createFilter from @rollup/pluginutils ([9ec6e63](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/9ec6e6365037817754dddd92e12ce27929d1f6b0))
+* support for windows absolute paths in filter patterns ([76249e4](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/76249e400f782d02e6f119317a1ee732b2967fd8))
+
+
+### BREAKING CHANGES
+
+* imports to deduplicated assets are not merged into one
+* the plugin itself is not responsible for filtering
+paths
+
 ## [2.2.1](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.2.0...v2.2.1) (2021-03-13)
 
 
