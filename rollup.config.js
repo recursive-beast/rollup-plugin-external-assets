@@ -1,6 +1,6 @@
 import { builtinModules } from "module";
 import nodeResolve from '@rollup/plugin-node-resolve';
-import ts from "@wessberg/rollup-plugin-ts";
+import ts from "rollup-plugin-ts";
 import transformDefaultExport from "ts-transform-default-export";
 import pkg from "./package.json";
 
