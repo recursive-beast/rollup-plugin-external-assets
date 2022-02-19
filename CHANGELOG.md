@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v3.0.0...v3.0.1) (2022-02-19)
+
+
+### Bug Fixes
+
+* update dependencies ([6f3e72d](https://github.com/soufyakoub/rollup-plugin-external-assets/commit/6f3e72dd5e6fd2cc10683b60600136c4f795d2ad))
+
 # [3.0.0](https://github.com/soufyakoub/rollup-plugin-external-assets/compare/v2.2.1...v3.0.0) (2021-04-24)
 
 
