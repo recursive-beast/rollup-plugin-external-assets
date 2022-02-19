@@ -88,7 +88,7 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
@@ -104,7 +104,7 @@ var index4 = () => {
 	sayHi();
 };
 
-export default index4;
+export { index4 as default };
 "
 `;
 
@@ -125,7 +125,7 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
@@ -146,7 +146,7 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
@@ -165,7 +165,7 @@ var sayHi = () => {
 	console.log(\\"hello\\");
 };
 
-export default sayHi;
+export { sayHi as default };
 "
 `;
 
@@ -180,7 +180,7 @@ var index4 = () => {
 	sayHi();
 };
 
-export default index4;
+export { index4 as default };
 "
 `;
 
@@ -201,7 +201,7 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
@@ -222,12 +222,12 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
 exports[`output.format = 'amd': index1 1`] = `
-"define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (png, text, styles_css) { 'use strict';
+"define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], (function (png, text, styles_css) { 'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -241,14 +241,14 @@ exports[`output.format = 'amd': index1 1`] = `
 	};
 
 	var index1 = () => {
-		console.log(png__default['default']);
-		console.log(text__default['default']);
+		console.log(png__default[\\"default\\"]);
+		console.log(text__default[\\"default\\"]);
 		sayHi();
 	};
 
 	return index1;
 
-});
+}));
 "
 `;
 
@@ -271,8 +271,8 @@ var sayHi = () => {
 };
 
 var index1 = () => {
-	console.log(png__default['default']);
-	console.log(text__default['default']);
+	console.log(png__default[\\"default\\"]);
+	console.log(text__default[\\"default\\"]);
 	sayHi();
 };
 
@@ -297,21 +297,21 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
 
 exports[`output.format = 'system': index1 1`] = `
-"System.register([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], function (exports) {
+"System.register([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], (function (exports) {
 	'use strict';
 	var png, text;
 	return {
 		setters: [function (module) {
-			png = module.default;
+			png = module[\\"default\\"];
 		}, function (module) {
-			text = module.default;
+			text = module[\\"default\\"];
 		}, function () {}],
-		execute: function () {
+		execute: (function () {
 
 			// This import should not be removed unless specified by the user or some other plugin.
 
@@ -325,9 +325,9 @@ exports[`output.format = 'system': index1 1`] = `
 				sayHi();
 			});
 
-		}
+		})
 	};
-});
+}));
 "
 `;
 
@@ -336,7 +336,7 @@ exports[`output.format = 'umd': index1 1`] = `
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require(\\"./assets/image-0fc60877.png\\"), require(\\"./assets/text-6d7076f2.txt\\"), require(\\"./assets/styles-fc0ceb37.css\\")) :
 	typeof define === 'function' && define.amd ? define([\\"./assets/image-0fc60877.png\\", \\"./assets/text-6d7076f2.txt\\", \\"./assets/styles-fc0ceb37.css\\"], factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.test = factory(global.png, global.text));
-}(this, (function (png, text) { 'use strict';
+})(this, (function (png, text) { 'use strict';
 
 	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -350,14 +350,14 @@ exports[`output.format = 'umd': index1 1`] = `
 	};
 
 	var index1 = () => {
-		console.log(png__default['default']);
-		console.log(text__default['default']);
+		console.log(png__default[\\"default\\"]);
+		console.log(text__default[\\"default\\"]);
 		sayHi();
 	};
 
 	return index1;
 
-})));
+}));
 "
 `;
 
@@ -377,6 +377,6 @@ var index1 = () => {
 	sayHi();
 };
 
-export default index1;
+export { index1 as default };
 "
 `;
