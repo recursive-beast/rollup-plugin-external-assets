@@ -14,7 +14,7 @@
     "coverage": "codecov",
     "clean": "rimraf dist tests/coverage",
     "build": "rimraf dist && rollup -c",
-    "prepare": "cd tests/fixtures && npm install"
+    "prepare": "husky install && cd tests/fixtures && npm install"
   },
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "codecov": "^3.8.1",
     "cross-env": "^7.0.3",
     "fs-extra": "^9.1.0",
-    "husky": "^6.0.0",
+    "husky": "^7.0.4",
     "jest": "^26.6.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.45.2",
