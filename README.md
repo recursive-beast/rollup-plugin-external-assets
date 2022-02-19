@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/dt/rollup-plugin-external-assets)](https://www.npmjs.com/package/rollup-plugin-external-assets)
 [![npm](https://img.shields.io/npm/v/rollup-plugin-external-assets)](https://www.npmjs.com/package/rollup-plugin-external-assets)
-[![Build Status](https://travis-ci.com/soufyakoub/rollup-plugin-external-assets.svg?branch=master)](https://travis-ci.com/soufyakoub/rollup-plugin-external-assets)
+[![build](https://github.com/recursive-beast/rollup-plugin-external-assets/actions/workflows/build.yml/badge.svg)](https://github.com/recursive-beast/rollup-plugin-external-assets/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/soufyakoub/rollup-plugin-external-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/soufyakoub/rollup-plugin-external-assets)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)][1]
 
