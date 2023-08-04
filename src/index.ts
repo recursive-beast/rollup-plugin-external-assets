@@ -3,6 +3,7 @@ import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
 import { createFilter } from "@rollup/pluginutils";
 import fs from "fs/promises";
+import Joi from "joi";
 import path from "path";
 import { Plugin } from "rollup";
 
@@ -11,15 +12,6 @@ const PREFIX = `\0${PLUGIN_NAME}:`;
 
 export type FilterPattern = string | RegExp | (string | RegExp)[];
 
-export function isFilterPattern(value: unknown): value is FilterPattern {
-	let tmp: unknown[];
-
-	if (Array.isArray(value)) tmp = value;
-	else tmp = [value];
-
-	return tmp.every((e) => typeof e === "string" || e instanceof RegExp);
-}
-
 export interface ExternalAssetsOptions {
 	/** A pattern, or array of patterns, to match files the plugin should ignore. */
 	include: FilterPattern;
@@ -27,6 +19,29 @@ export interface ExternalAssetsOptions {
 	exclude?: FilterPattern;
 	/** The value will be used as the base directory for resolving patterns. By default it's `process.cwd()`. */
 	resolve?: string;
+}
+
+const union = Joi.alternatives(Joi.string(), Joi.object().regex());
+const patternSchema = Joi.alternatives<FilterPattern>(
+	union,
+	Joi.array().items(union).min(1)
+);
+const optionsSchema = Joi.object<ExternalAssetsOptions>({
+	include: patternSchema.required(),
+	exclude: patternSchema,
+	resolve: Joi.string(),
+});
+
+function validate(arg: unknown): ExternalAssetsOptions {
+	const pattern = patternSchema.validate(arg);
+
+	if (!pattern.error) return { include: pattern.value };
+
+	const options = optionsSchema.validate(arg);
+
+	if (!options.error) return options.value;
+
+	throw new TypeError("Invalid argument");
 }
 
 /**
@@ -41,15 +56,9 @@ function externalAssets(options: ExternalAssetsOptions): Plugin;
  */
 function externalAssets(pattern: FilterPattern): Plugin;
 
-function externalAssets(arg: FilterPattern | ExternalAssetsOptions): Plugin {
-	let idFilter: ReturnType<typeof createFilter>;
-
-	if (isFilterPattern(arg)) {
-		idFilter = createFilter(arg);
-	} else {
-		const { include, exclude, resolve } = arg;
-		idFilter = createFilter(include, exclude, { resolve });
-	}
+function externalAssets(arg: unknown): Plugin {
+	const { include, exclude, resolve } = validate(arg);
+	const idFilter = createFilter(include, exclude, { resolve });
 
 	return {
 		name: PLUGIN_NAME,
