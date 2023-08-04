@@ -3,7 +3,7 @@ import path from "path";
 import { Plugin } from "rollup";
 import { createFilter, FilterPattern, normalizePath } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
-import { getOutputId, getRelativeImportPath, normalizeFilterPattern } from "./helpers";
+import { getOutputId, getRelativeImportPath } from "./helpers";
 
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
@@ -34,8 +34,6 @@ export default function externalAssets(
 	exclude?: FilterPattern,
 	options?: Options,
 ): Plugin {
-	include = normalizeFilterPattern(include);
-	exclude = normalizeFilterPattern(exclude);
 	const idFilter = createFilter(include, exclude, options);
 	const assets = new Map<string, Buffer>();
 
