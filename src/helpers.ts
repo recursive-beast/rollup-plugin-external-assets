@@ -1,4 +1,3 @@
-import { FilterPattern, normalizePath } from "@rollup/pluginutils";
 import path from "path";
 import { OutputOptions } from "rollup";
 
@@ -24,17 +23,4 @@ export function getRelativeImportPath(from: string, to: string) {
 	}
 
 	return import_path;
-}
-
-export function normalizeFilterPattern(pattern?: FilterPattern): FilterPattern | undefined {
-	if (typeof pattern === "string") return normalizePath(pattern);
-
-	if (Array.isArray(pattern)) {
-		return pattern.map(element => {
-			if (typeof element === "string") return normalizePath(element);
-			return element;
-		});
-	}
-
-	return pattern;
 }
