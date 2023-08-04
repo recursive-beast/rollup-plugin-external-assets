@@ -1,40 +1,55 @@
 import fs from "fs/promises";
 import path from "path";
 import { Plugin } from "rollup";
-import { createFilter, FilterPattern, normalizePath } from "@rollup/pluginutils";
+import { createFilter, normalizePath } from "@rollup/pluginutils";
 import { parse, print, types, visit } from "recast";
 import { getOutputId, getRelativeImportPath } from "./helpers";
 
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
 
-interface Options {
-	/**
-	 * Optionally resolves the patterns against a directory other than `process.cwd()`.
-	 * If a `string` is specified, then the value will be used as the base directory.
-	 * Relative paths will be resolved against `process.cwd()` first.
-	 * If `false`, then the patterns will not be resolved against any directory.
-	 */
-	resolve?: string | false | null;
+export type FilterPattern = string | RegExp | (string | RegExp)[];
+
+export function isFilterPattern(value: unknown): value is FilterPattern {
+	let tmp: unknown[];
+
+	if (Array.isArray(value)) tmp = value;
+	else tmp = [value];
+
+	return tmp.every((e) => typeof e === "string" || e instanceof RegExp);
+}
+
+export interface ExternalAssetsOptions {
+	/** A pattern, or array of patterns, to match files the plugin should ignore. */
+	include: FilterPattern;
+	/** A pattern, or array of patterns, to match files the plugin should operate on. */
+	exclude?: FilterPattern;
+	/** The value will be used as the base directory for resolving patterns. By default it's `process.cwd()`. */
+	resolve?: string;
 }
 
 /**
  * Make assets external but include them in the output.
- * @param include A valid picomatch pattern, or array of patterns.
- * If `include` is omitted or has zero length, all imports will be processed.
- *
- * **Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
- * @param exclude If an asset matches one of the `exclude` patterns, its import will not be processed.
- *
- * **Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
  * @param options The options object.
  */
-export default function externalAssets(
-	include?: FilterPattern,
-	exclude?: FilterPattern,
-	options?: Options,
-): Plugin {
-	const idFilter = createFilter(include, exclude, options);
+function externalAssets(options: ExternalAssetsOptions): Plugin;
+
+/**
+ * Make assets external but include them in the output.
+ * @param pattern A pattern, or array of patterns, to match files the plugin should ignore.
+ */
+function externalAssets(pattern: FilterPattern): Plugin;
+
+function externalAssets(arg: FilterPattern | ExternalAssetsOptions): Plugin {
+	let idFilter: ReturnType<typeof createFilter>;
+
+	if (isFilterPattern(arg)) {
+		idFilter = createFilter(arg);
+	} else {
+		const { include, exclude, resolve } = arg;
+		idFilter = createFilter(include, exclude, { resolve });
+	}
+
 	const assets = new Map<string, Buffer>();
 
 	return {
@@ -145,3 +160,6 @@ export default function externalAssets(
 		},
 	};
 }
+
+export { externalAssets };
+export default externalAssets;
