@@ -59,7 +59,9 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.2",
-    "recast": "^0.23.3"
+    "@babel/generator": "^7.22.9",
+    "@babel/parser": "^7.22.7",
+    "@babel/traverse": "^7.22.8",
+    "@rollup/pluginutils": "^5.0.2"
   }
 }

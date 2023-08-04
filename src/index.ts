@@ -1,9 +1,10 @@
+import generate from "@babel/generator";
+import { parse } from "@babel/parser";
+import traverse from "@babel/traverse";
+import { createFilter } from "@rollup/pluginutils";
 import fs from "fs/promises";
 import path from "path";
 import { Plugin } from "rollup";
-import { createFilter, normalizePath } from "@rollup/pluginutils";
-import { parse, print, types, visit } from "recast";
-import { getOutputId, getRelativeImportPath } from "./helpers";
 
 const PLUGIN_NAME = "external-assets";
 const PREFIX = `\0${PLUGIN_NAME}:`;
@@ -50,40 +51,16 @@ function externalAssets(arg: FilterPattern | ExternalAssetsOptions): Plugin {
 		idFilter = createFilter(include, exclude, { resolve });
 	}
 
-	const assets = new Map<string, Buffer>();
-
 	return {
 		name: PLUGIN_NAME,
 
-		async resolveId(source, importer) {
-			// We're not resolving anything here,
-			// we only need to ignore the proxy imports introduced in the loaded module (check the load hook).
-			if (importer && source.startsWith(PREFIX)) {
-				return {
-					id: source,
-					external: true
-				};
-			}
-
-			return null;
-		},
-
-		async resolveDynamicImport(specifier, importer) {
-			if (typeof specifier !== "string") return null;
-
-			const resolution = await this.resolve(specifier, importer, { skipSelf: true });
-
-			if (!resolution || !idFilter(resolution.id)) return null;
-
-			const id = resolution.id;
-			const normalizedId = normalizePath(id);
-
-			assets.set(normalizedId, await fs.readFile(id));
-
-			this.addWatchFile(id);
+		resolveId(source, importer, options) {
+			// skip resolving entry points or imports not introduced by us in the load hook.
+			if (!importer || options.isEntry || !source.startsWith(PREFIX))
+				return null;
 
 			return {
-				id: PREFIX + normalizedId,
+				id: source,
 				external: true,
 			};
 		},
@@ -91,72 +68,45 @@ function externalAssets(arg: FilterPattern | ExternalAssetsOptions): Plugin {
 		async load(id) {
 			if (!idFilter(id)) return null;
 
-			const normalizedId = normalizePath(id);
+			const ref = this.emitFile({
+				type: "asset",
+				name: path.basename(id),
+				source: await fs.readFile(id),
+			});
 
-			assets.set(normalizedId, await fs.readFile(id));
-
-			// Load a proxy module that rollup will discard in favor of inligning the imports.
-			// The benefit of doing it this way, instead of resolving asset imports to external ids,
-			// is that we get watch mode support out of the box.
-			return `export * from "${PREFIX + normalizedId}";\n`
-				+ `export { default } from "${PREFIX + normalizedId}";\n`;
+			return `export * from "${PREFIX}${ref}";
+			export { default } from "${PREFIX}${ref}";
+			`;
 		},
 
-		async renderChunk(code, chunk, outputOptions) {
-			const chunk_id = getOutputId(chunk.fileName, outputOptions);
-			const chunk_basename = path.basename(chunk_id);
-			const rollup_context = this;
+		async renderChunk(code, chunk) {
+			const context = this;
+			const ast = parse(code, { sourceType: "unambiguous" });
 
-			const customParser = {
-				parse(source: string) {
-					// Use rollup's internal acorn instance to parse `source`.
-					return rollup_context.parse(source, {
-						ecmaVersion: "latest",
-						locations: true, // Needed by `recast` to preserve code formatting.
-					});
-				},
-			};
+			traverse(ast, {
+				StringLiteral(nodePath) {
+					const node = nodePath.node;
+					const value = node.value;
 
-			const ast = parse(code, {
-				sourceFileName: chunk_basename,
-				parser: customParser,
-			});
+					if (!value.startsWith(PREFIX)) return;
 
-			visit(ast, {
-				visitLiteral(nodePath) {
-					const value = nodePath.node.value;
+					const ref = value.slice(PREFIX.length);
+					const assetFileName = context.getFileName(ref);
+					const dir = path.dirname(chunk.fileName);
+					let relative = path.posix.relative(dir, assetFileName);
 
-					if (typeof value !== "string" || !value.startsWith(PREFIX)) return this.traverse(nodePath);
+					if (
+						!relative.startsWith("./") &&
+						!relative.startsWith("../")
+					) {
+						relative = "./" + relative;
+					}
 
-					const target_id = value.slice(PREFIX.length);
-
-					// Emit the targeted asset.
-					const asset_reference_id = rollup_context.emitFile({
-						type: "asset",
-						source: assets.get(target_id),
-						name: path.basename(target_id),
-					});
-
-					// Get a relative path from this chunk to the emitted asset.
-					const asset_filename = rollup_context.getFileName(asset_reference_id);
-					const asset_id = getOutputId(asset_filename, outputOptions);
-					const chunk_dir = path.dirname(chunk_id);
-					let new_import_string = getRelativeImportPath(chunk_dir, asset_id);
-
-					// Replace the import string literal with our new relative path.
-					const replacementNode = types.builders.literal(new_import_string);
-					nodePath.replace(replacementNode);
-
-					// Continue traversing the ast.
-					this.traverse(nodePath);
+					node.value = relative;
 				},
 			});
 
-			const result = print(ast, { sourceMapName: `${chunk_basename}.map` });
-			return {
-				code: result.code,
-				map: result.map,
-			};
+			return generate(ast, { sourceMaps: true });
 		},
 	};
 }
