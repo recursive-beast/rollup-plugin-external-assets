@@ -2,6 +2,7 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "declaration": true,
+    "declarationDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
