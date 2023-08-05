@@ -118,4 +118,3 @@ function externalAssets(arg: unknown): Plugin {
 }
 
 export { externalAssets };
-export default externalAssets;

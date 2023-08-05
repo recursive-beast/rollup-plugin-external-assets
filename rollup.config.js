@@ -1,42 +1,24 @@
-import { builtinModules } from "module";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import ts from "rollup-plugin-ts";
-import transformDefaultExport from "ts-transform-default-export";
+import typescript from "@rollup/plugin-typescript";
+import { builtinModules } from "module";
 import pkg from "./package.json";
 
-const external = [
-  ...Object.keys(pkg.dependencies),
-  // ...Object.keys(pkg.peerDependencies),
-  ...builtinModules,
-];
+const external = [/node_modules/g, ...builtinModules];
 
-export default [
-  {
-    input: "src/index.ts",
-    output: {
+export default {
+  input: "src/index.ts",
+  output: [
+    {
       file: pkg.main,
       format: "cjs",
-      exports: "default",
       sourcemap: true,
     },
-    external,
-    plugins: [
-      nodeResolve(),
-      ts({
-        transformers: ({ program }) => ({
-          afterDeclarations: transformDefaultExport(program),
-        }),
-      }),
-    ],
-  },
-  {
-    input: "src/index.ts",
-    output: {
+    {
       file: pkg.module,
       format: "es",
       sourcemap: true,
     },
-    external,
-    plugins: [nodeResolve(), ts()],
-  },
-];
+  ],
+  external,
+  plugins: [nodeResolve(), typescript()],
+};
