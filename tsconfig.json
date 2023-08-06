@@ -8,6 +8,5 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "sourceMap": true
-  },
-  "include": ["src/*", "tests/*"]
+  }
 }

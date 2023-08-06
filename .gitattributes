@@ -1,5 +1,2 @@
-*	text=auto
-tests/fixtures/**/*	eol=lf
-tests/fixtures/assets/*	binary
-*.woff	binary
+*		text=lf
 *.snap	binary
