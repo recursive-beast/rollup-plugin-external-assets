@@ -3,7 +3,7 @@ import typescript from "@rollup/plugin-typescript";
 import { builtinModules } from "module";
 import pkg from "./package.json";
 
-const external = [/node_modules/g, ...builtinModules];
+const external = [...Object.keys(pkg.dependencies), ...builtinModules];
 
 export default {
   input: "src/index.ts",
@@ -12,6 +12,7 @@ export default {
       file: pkg.main,
       format: "cjs",
       sourcemap: true,
+      interop: "auto",
     },
     {
       file: pkg.module,
