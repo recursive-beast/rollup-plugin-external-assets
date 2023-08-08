@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v4.0.1...v4.0.2) (2023-08-08)
+
+
+### Bug Fixes
+
+* trigger next version release ([ffdce25](https://github.com/recursive-beast/rollup-plugin-external-assets/commit/ffdce25c83d5a5180c9cd93048ca95024047f96d))
+
 ## [4.0.1](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v4.0.0...v4.0.1) (2023-08-08)
 
 
