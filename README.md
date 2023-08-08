@@ -35,7 +35,7 @@ console.log(logo);
 Create a `rollup.config.js` [configuration file](https://www.rollupjs.org/guide/en/#configuration-files) and import the plugin:
 
 ```js
-import externalAssets from "rollup-plugin-external-assets";
+import { externalAssets } from "rollup-plugin-external-assets";
 
 export default {
 	input: "src/index.js",
