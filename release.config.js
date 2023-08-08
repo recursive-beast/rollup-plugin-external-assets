@@ -13,11 +13,6 @@ module.exports = {
           "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },
     ],
-    [
-      "@semantic-release/github",
-      {
-        assets: "rollup-plugin-external-assets-${nextRelease.version}.tgz",
-      },
-    ],
+    ["@semantic-release/github", { assets: "*.tgz" }],
   ],
 };
