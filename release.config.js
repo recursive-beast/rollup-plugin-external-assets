@@ -15,7 +15,9 @@ module.exports = {
     ],
     [
       "@semantic-release/github",
-      { assets: ["dist", "package.json", "package-lock.json", "CHANGELOG.md"] },
+      {
+        assets: "rollup-plugin-external-assets-${nextRelease.version}.tgz",
+      },
     ],
   ],
 };
