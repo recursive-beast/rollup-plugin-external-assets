@@ -1,3 +1,20 @@
+# [4.0.0](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v3.0.1...v4.0.0) (2023-08-08)
+
+
+* feat!: use only named export ([7d0e03c](https://github.com/recursive-beast/rollup-plugin-external-assets/commit/7d0e03c05d4558f8afdc5c7b105e12200baaa8e5))
+* feat!: change function signature ([df7ad53](https://github.com/recursive-beast/rollup-plugin-external-assets/commit/df7ad534a8d83cc0a3928cf7cc6fc80a7758285f))
+
+
+### Features
+
+* add argument validation using joi ([4ee6b01](https://github.com/recursive-beast/rollup-plugin-external-assets/commit/4ee6b011ee42b264e13f64c3bd56c411249952d1))
+
+
+### BREAKING CHANGES
+
+* the plugin is now provided using a named export
+* more convenient and future proof function signature
+
 ## [3.0.1](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v3.0.0...v3.0.1) (2022-02-19)
 
 
