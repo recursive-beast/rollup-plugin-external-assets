@@ -2,20 +2,21 @@
 [![npm](https://img.shields.io/npm/v/rollup-plugin-external-assets)](https://www.npmjs.com/package/rollup-plugin-external-assets)
 [![build](https://github.com/recursive-beast/rollup-plugin-external-assets/actions/workflows/build.yml/badge.svg)](https://github.com/recursive-beast/rollup-plugin-external-assets/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/recursive-beast/rollup-plugin-external-assets/branch/master/graph/badge.svg)](https://codecov.io/gh/recursive-beast/rollup-plugin-external-assets)
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)][1]
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # rollup-plugin-external-assets
+
 > A rollup plugin to make assets external but include them in the output.
 
 ## Installation
 
-Via [npm][2]
+Via [npm](https://npmjs.org)
 
 ```sh
 npm install --save-dev rollup-plugin-external-assets
 ```
 
-Via [yarn][3]
+Via [yarn](https://yarnpkg.com)
 
 ```sh
 yarn add -D rollup-plugin-external-assets
@@ -23,75 +24,73 @@ yarn add -D rollup-plugin-external-assets
 
 ## Usage
 
-```javascript
-import nodeResolve from "@rollup/plugin-node-resolve";
+Assuming a `src/index.js` exists and contains code like the following:
+
+```js
+import logo from "../assets/logo.png";
+
+console.log(logo);
+```
+
+Create a `rollup.config.js` [configuration file](https://www.rollupjs.org/guide/en/#configuration-files) and import the plugin:
+
+```js
 import externalAssets from "rollup-plugin-external-assets";
 
 export default {
 	input: "src/index.js",
 	output: {
 		file: "dist/index.js",
-		format: "es",
-		sourcemap: true,
+		format: "cjs",
 	},
-	plugins: [
-		nodeResolve(),
-		externalAssets("assets/*.png"),
-	],
+	plugins: [externalAssets("assets/*")],
 };
 ```
 
-## API
+Then call `rollup` either via the [CLI](https://www.rollupjs.org/guide/en/#command-line-reference) or the [API](https://www.rollupjs.org/guide/en/#javascript-api).
 
-```typescript
-function externalAssets(
-	include?: string | RegExp | (string | RegExp)[],
-	exclude?: string | RegExp | (string | RegExp)[],
-	options?: { resolve?: string | false | null },
-);
+Once the bundle is executed, you end up with a `dist` directory like the following:
+
+![dist directory structure](assets/screenshot.png)
+
+With `dist/index.js` containing:
+
+```js
+"use strict";
+
+var logo = require("./assets/logo-0c6cee7b.png");
+console.log(logo);
 ```
 
-### include / exclude
+## Options
 
-`string | RegExp | (string | RegExp)[]`
+To tailor the plugin behavior to your needs, you can pass a configuration object as the argument:
 
-A valid [picomatch][9] pattern, or array of patterns.
-If `include` is omitted or has zero length, all imports will be considered as assets.
-Otherwise, an import path must match one or more of the `include` patterns,
-and must not match any of the `exclude` patterns.
+`include`
 
-**Note**: patterns that include windows paths are normalized to be valid picomatch patterns.
+• Type: `string | RegExp | (string | RegExp)[]`
 
-```javascript
-import path from "path";
+A pattern, or array of patterns, to match files the plugin should operate on.
 
-// Operate on images located in the ./assets directory.
-externalAssets("assets/**/*.jpg");
+`exclude`
 
-// Operate on images located in the ./assets directory.
-// and all stylesheet files.
-externalAssets(["assets/**/*.{jpg,png}", /\.(css|scss)$/]);
+• Type: `string | RegExp | (string | RegExp)[]`
 
-// Operate on all assets except text files.
-externalAssets("assets/**/*", "**/*.txt");
+A pattern, or array of patterns, to match files the plugin should ignore.
 
-// Operate on all assets except text files.
-// `__dirname` is the pattern's base dir instead of `process.cwd()`.
-externalAssets(path.resolve(__dirname, "assets/**/*"), "**/*.txt");
-```
+`resolve`
 
-### options
+• Type: `string`<br/>
+• Default: `process.cwd()`
 
-- `resolve` `{string | false | null}`: Optionally resolves the patterns against a directory other than `process.cwd()`.
-If a `string` is specified, then the value will be used as the base directory.
-Relative paths will be resolved against `process.cwd()` first.
-If `false`, then the patterns will not be resolved against any directory.
+The value will be used as the base directory for resolving patterns.
 
 ## Contributing
 
 ### Prerequisites
-- [nodejs][4]
-- [npm][2]
+
+-   [nodejs](https://nodejs.org)
+-   [npm](https://npmjs.org)
 
 ### Getting Started
 
@@ -115,39 +114,18 @@ To run tests:
 npm test
 ```
 
-Note that rollup may emit warnings for unspecified options, or for some other reasons.
-I made sure they are ignored with the `ROLLUP_WARNINGS` environment variable in the npm test script.
-
-If you want to see all the warnings when running tests, use this command instead:
+To run tests with coverage report:
 
 ```sh
-npm run test:warn
+npm run test:coverage
 ```
 
 Coverage report is located in `tests/coverage`.
-You might want to review it in your browser, and for example,
-write tests for non-covered blocks, or remove them if they're useless.
-
-To run tests and update snapshots, pass the `-u` flag to [jest][8] through the `test` (or `test:warn`) npm script:
-
-```sh
-npm test -- -u
-```
 
 ### Commiting changes
 
-Please follow the [conventional commits][5] specification, because [semantic-release][6] is used to automate the whole package release workflow including: determining the next version number, generating the release notes and publishing the package.
+Please follow the [conventional commits](https://www.conventionalcommits.org) specification, because [semantic-release](https://github.com/semantic-release/semantic-release) is used to automate the whole package release workflow including: determining the next version number, generating the release notes and publishing the package.
 
 ## License
 
-[MIT][1]
-
-[1]: LICENSE
-[2]: https://npmjs.org/
-[3]: https://yarnpkg.com
-[4]: https://nodejs.org
-[5]: https://www.conventionalcommits.org/en/v1.0.0/
-[6]: https://github.com/semantic-release/semantic-release
-[7]: https://github.com/concordancejs/concordance/issues/68
-[8]: https://jestjs.io/
-[9]: https://github.com/micromatch/picomatch#globbing-features
+[MIT](LICENSE)
