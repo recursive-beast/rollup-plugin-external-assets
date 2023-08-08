@@ -13,9 +13,9 @@ const PREFIX = `\0${PLUGIN_NAME}:`;
 export type FilterPattern = string | RegExp | (string | RegExp)[];
 
 export interface ExternalAssetsOptions {
-  /** A pattern, or array of patterns, to match files the plugin should ignore. */
-  include: FilterPattern;
   /** A pattern, or array of patterns, to match files the plugin should operate on. */
+  include: FilterPattern;
+  /** A pattern, or array of patterns, to match files the plugin should ignore. */
   exclude?: FilterPattern;
   /** The value will be used as the base directory for resolving patterns. By default it's `process.cwd()`. */
   resolve?: string;
