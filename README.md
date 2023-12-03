@@ -6,7 +6,9 @@
 
 # rollup-plugin-external-assets
 
-> A rollup plugin to make assets external but include them in the output.
+> A rollup plugin to make assets external,</br>
+> they will not be added to the bundling pipeline,</br>
+> but they will still be included in the final output.
 
 ## Installation
 
