@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v4.1.0...v4.1.1) (2024-04-13)
+
+
+### Bug Fixes
+
+* closes [#75](https://github.com/recursive-beast/rollup-plugin-external-assets/issues/75), using plugin results in empty source map files ([99416de](https://github.com/recursive-beast/rollup-plugin-external-assets/commit/99416de02c464da31e69c384d8e14285ded751f7))
+
 # [4.1.0](https://github.com/recursive-beast/rollup-plugin-external-assets/compare/v4.0.2...v4.1.0) (2024-02-05)
 
 
