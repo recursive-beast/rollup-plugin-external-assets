@@ -112,7 +112,10 @@ function externalAssets(arg: unknown): Plugin {
         },
       });
 
-      return generate(ast, { sourceMaps: true });
+      return generate(ast, {
+        sourceMaps: true,
+        sourceFileName: chunk.fileName,
+      });
     },
   };
 }
